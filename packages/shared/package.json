@@ -1,0 +1,21 @@
+{
+  "name": "@kira/shared",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shared database models and utilities",
+  "main": "src/index.js",
+  "scripts": {
+    "migrate": "sequelize-cli db:migrate",
+    "migrate:undo": "sequelize-cli db:migrate:undo",
+    "seed": "sequelize-cli db:seed:all"
+  },
+  "dependencies": {
+    "sequelize": "^6.35.2",
+    "mariadb": "^3.2.3",
+    "dotenv": "^16.3.1",
+    "nanoid": "^3.3.7"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.2"
+  }
+}

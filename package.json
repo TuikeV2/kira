@@ -1,0 +1,40 @@
+{
+  "name": "kira",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Discord bot with web panel and licensing system",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "bot:dev": "yarn workspace @kira/bot dev",
+    "api:dev": "yarn workspace @kira/api dev",
+    "web:dev": "yarn workspace @kira/web dev",
+    "dev": "concurrently \"yarn bot:dev\" \"yarn api:dev\" \"yarn web:dev\"",
+    "db:migrate": "yarn workspace @kira/shared migrate",
+    "db:seed": "yarn workspace @kira/shared seed",
+    "install:all": "yarn install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "resolutions": {
+    "ws": "^8.18.0",
+    "youtubei.js": "16.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@discord-player/extractor": "^7.1.0",
+    "@discordjs/voice": "^0.19.0",
+    "@heroicons/react": "^2.2.0",
+    "@napi-rs/canvas": "^0.1.88",
+    "discord-voip": "^7.1.0",
+    "ffmpeg-static": "^5.3.0",
+    "heroicons": "^2.2.0",
+    "mediaplex": "^1.0.0",
+    "react-hot-toast": "^2.6.0",
+    "stripe": "^20.2.0"
+  }
+}

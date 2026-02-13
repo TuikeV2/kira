@@ -1,0 +1,467 @@
+{
+  "common": {
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "add": "Добавить",
+    "remove": "Удалить",
+    "enable": "Включить",
+    "disable": "Выключить",
+    "enabled": "Включено",
+    "disabled": "Выключено",
+    "yes": "Да",
+    "no": "Нет",
+    "loading": "Загрузка...",
+    "error": "Ошибка",
+    "success": "Успешно",
+    "warning": "Предупреждение",
+    "info": "Информация",
+    "confirm": "Подтвердить",
+    "back": "Назад",
+    "next": "Далее",
+    "previous": "Предыдущий",
+    "search": "Поиск",
+    "filter": "Фильтр",
+    "sort": "Сортировка",
+    "refresh": "Обновить",
+    "settings": "Настройки",
+    "language": "Язык",
+    "polish": "Польский",
+    "english": "Английский",
+    "russian": "Русский",
+    "selectLanguage": "Выберите язык",
+    "saveChanges": "Сохранить изменения",
+    "noData": "Нет данных",
+    "notFound": "Не найдено",
+    "serverError": "Ошибка сервера",
+    "unauthorized": "Не авторизован",
+    "forbidden": "Доступ запрещен",
+    "channel": "Канал",
+    "channels": "Каналы",
+    "role": "Роль",
+    "roles": "Роли",
+    "member": "Участник",
+    "members": "Участники",
+    "server": "Сервер",
+    "servers": "Серверы",
+    "user": "Пользователь",
+    "users": "Пользователи",
+    "bot": "Бот",
+    "online": "Онлайн",
+    "offline": "Оффлайн",
+    "today": "Сегодня",
+    "yesterday": "Вчера"
+  },
+  "nav": {
+    "home": "Главная",
+    "dashboard": "Панель",
+    "servers": "Мои серверы",
+    "licenses": "Лицензии",
+    "moderationLogs": "Логи модерации",
+    "buyLicense": "Купить лицензию",
+    "promoCodes": "Промокоды",
+    "activateLicense": "Активировать лицензию",
+    "admin": "Админ",
+    "profile": "Мой профиль",
+    "login": "Войти",
+    "logout": "Выйти",
+    "searchServers": "Поиск серверов..."
+  },
+  "login": {
+    "title": "Войти через Discord",
+    "subtitle": "Управляйте ботом из одного места",
+    "loginButton": "Войти через Discord",
+    "badge": "Премиум Discord бот",
+    "description": "Мощный Discord бот с системой уровней, модерацией, розыгрышами, ролями по реакциям и многим другим. Все настраивается через веб-панель.",
+    "inviteBot": "Пригласить бота",
+    "addToServer": "Добавить на сервер",
+    "openPanel": "Открыть панель",
+    "featuresTitle": "Все что вам нужно",
+    "featuresSubtitle": "KiraEvo предлагает все функции для управления вашим Discord сообществом.",
+    "ctaTitle": "Готовы начать?",
+    "ctaDescription": "Добавьте KiraEvo на сервер и настройте все за несколько минут.",
+    "ctaButton": "Добавить KiraEvo сейчас",
+    "features": {
+      "automod": "Авто Модерация",
+      "automodDesc": "Автоматическая модерация сообщений, фильтрация слов и ссылок.",
+      "leveling": "Система Уровней",
+      "levelingDesc": "Награждайте активных пользователей XP и ролями за уровни.",
+      "giveaways": "Розыгрыши",
+      "giveawaysDesc": "Организуйте конкурсы с автоматическим выбором победителей.",
+      "reactionRoles": "Роли по Реакциям",
+      "reactionRolesDesc": "Позвольте пользователям выбирать роли через реакции.",
+      "customCommands": "Свои Команды",
+      "customCommandsDesc": "Создавайте собственные текстовые команды для сервера.",
+      "webDashboard": "Веб Панель",
+      "webDashboardDesc": "Простая настройка всего через браузер."
+    },
+    "stats": {
+      "features": "Функций",
+      "online": "Онлайн",
+      "uptime": "Аптайм"
+    },
+    "benefits": {
+      "benefit1": "Без лимитов",
+      "benefit2": "Быстрая настройка",
+      "benefit3": "Регулярные обновления",
+      "benefit4": "Техническая поддержка"
+    },
+    "footer": {
+      "terms": "Условия использования",
+      "privacy": "Политика конфиденциальности",
+      "rights": "Все права защищены."
+    }
+  },
+  "dashboard": {
+    "overview": "Обзор",
+    "botCustomization": "Персонализация бота",
+    "automod": "Авто модерация",
+    "joinLeave": "Приветствия",
+    "inviteLogger": "Invite Logger",
+    "leveling": "Система уровней",
+    "embedCreator": "Создатель сообщений",
+    "reactionRoles": "Reaction Roles",
+    "tickets": "Система тикетов",
+    "customCommands": "Команды",
+    "giveaways": "Розыгрыши",
+    "statsChannels": "Каналы статистики",
+    "serverNotFound": "Сервер не найден",
+    "backToServers": "Вернуться к списку серверов",
+    "loadingServer": "Загрузка данных сервера...",
+    "settingsSaved": "Настройки сохранены!",
+    "settingsSaveFailed": "Не удалось сохранить настройки",
+    "selectChannel": "Выберите канал...",
+    "selectRole": "Выберите роль...",
+    "preview": "Предпросмотр",
+    "manageServer": "Управляйте настройками и модулями сервера.",
+    "expires": "Истекает",
+    "never": "Никогда",
+    "reactionPanels": "Панели Реакций",
+    "botConfig": "Конфигурация Бота",
+    "botConfigDesc": "Установите префикс для пользовательских команд",
+    "commandPrefix": "Префикс Команд",
+    "prefixHint": "Пользователи будут использовать этот префикс для пользовательских команд",
+    "saving": "Сохранение...",
+    "saveSettings": "Сохранить Настройки",
+    "prefixSaved": "Настройки префикса сохранены!"
+  },
+  "botCustomization": {
+    "title": "Персонализация бота",
+    "nickname": "Никнейм бота",
+    "nicknamePlaceholder": "Оставьте пустым для стандартного",
+    "nicknameHint": "Максимум 32 символа. Никнейм будет виден только на этом сервере.",
+    "avatar": "Аватар бота",
+    "avatarInfo": "Аватар бота глобальный - изменение аватара будет видно на всех серверах.",
+    "avatarFormats": "Поддерживаемые форматы: PNG, JPEG, GIF, WebP. Максимальный размер: 8MB.",
+    "removeAvatar": "Удалить аватар (восстановить стандартный)",
+    "avatarUrlPlaceholder": "URL изображения аватара"
+  },
+  "joinLeave": {
+    "welcomeSettings": "Настройки приветствия",
+    "goodbyeSettings": "Настройки прощания",
+    "channel": "Канал",
+    "title": "Заголовок",
+    "message": "Сообщение",
+    "image": "Изображение (опционально)",
+    "welcomePreview": "Предпросмотр приветствия",
+    "goodbyePreview": "Предпросмотр прощания",
+    "welcomeTitleDefault": "Добро пожаловать на сервер,",
+    "goodbyeTitleDefault": "До свидания,",
+    "messageContent": "Содержание сообщения...",
+    "saveChanges": "Сохранить Изменения"
+  },
+  "automod": {
+    "title": "Авто модерация",
+    "description": "Автоматическое удаление нежелательного контента",
+    "blockLinks": "Блокировка Ссылок",
+    "blockLinksDesc": "Автоматически удалять сообщения со ссылками HTTP/HTTPS",
+    "bannedWords": "Запрещенные Слова",
+    "bannedWordsDesc": "Сообщения с этими словами будут удалены",
+    "addWord": "Добавить слово",
+    "wordPlaceholder": "слово1, слово2, слово3...",
+    "wordList": "Список слов (через запятую)",
+    "wordsOnList": "Сейчас {count} слов в списке",
+    "saveAutomod": "Сохранить Настройки AutoMod"
+  },
+  "leveling": {
+    "title": "Система уровней",
+    "enabled": "Система уровней включена",
+    "channel": "Канал уведомлений",
+    "channelDesc": "Канал, где будут отправляться уведомления о повышении уровня",
+    "xpPerMessage": "XP за сообщение",
+    "cooldown": "Кулдаун (секунды)",
+    "levelUpMessage": "Сообщение о повышении",
+    "levelUpImage": "Изображение повышения",
+    "levelRoles": "Роли за уровень",
+    "addLevelRole": "Добавить роль за уровень",
+    "level": "Уровень",
+    "noLevelRoles": "Нет назначенных ролей"
+  },
+  "reactionRoles": {
+    "title": "Reaction Roles",
+    "createPanel": "Создать панель",
+    "panelTitle": "Заголовок панели",
+    "panelDescription": "Описание панели",
+    "targetChannel": "Целевой канал",
+    "addReaction": "Добавить реакцию",
+    "emoji": "Эмодзи",
+    "role": "Роль",
+    "noPanels": "Нет панелей реакций",
+    "deletePanel": "Удалить панель"
+  },
+  "tickets": {
+    "title": "Система тикетов",
+    "enabled": "Система тикетов включена",
+    "category": "Категория тикетов",
+    "supportRole": "Роль поддержки",
+    "welcomeMessage": "Приветственное сообщение",
+    "buttonText": "Текст кнопки",
+    "buttonColor": "Цвет кнопки"
+  },
+  "customCommands": {
+    "title": "Пользовательские команды",
+    "create": "Создать команду",
+    "name": "Название команды",
+    "response": "Ответ",
+    "noCommands": "Нет пользовательских команд",
+    "deleteCommand": "Удалить команду",
+    "prefix": "Префикс команд",
+    "slashOnly": "Только слэш-команды"
+  },
+  "giveaways": {
+    "title": "Розыгрыши",
+    "create": "Создать розыгрыш",
+    "prize": "Приз",
+    "winners": "Количество победителей",
+    "duration": "Длительность",
+    "channel": "Канал",
+    "active": "Активные",
+    "ended": "Завершенные",
+    "noGiveaways": "Нет розыгрышей"
+  },
+  "statsChannels": {
+    "title": "Каналы статистики",
+    "enabled": "Каналы статистики включены",
+    "refreshInterval": "Интервал обновления (минуты)",
+    "membersChannel": "Канал участников",
+    "boostsChannel": "Канал бустов",
+    "onlineChannel": "Канал онлайн",
+    "rolesChannel": "Канал ролей",
+    "channelsChannel": "Канал каналов"
+  },
+  "inviteLogger": {
+    "title": "Invite Logger",
+    "enabled": "Invite Logger включен",
+    "logChannel": "Канал логов",
+    "logChannelDesc": "Канал, где будут логироваться приглашения"
+  },
+  "licenses": {
+    "title": "Лицензии",
+    "myLicenses": "Мои лицензии",
+    "buyLicense": "Купить лицензию",
+    "licenseKey": "Ключ лицензии",
+    "tier": "Уровень",
+    "status": "Статус",
+    "active": "Активна",
+    "expired": "Истекла",
+    "expiresAt": "Истекает",
+    "servers": "Серверы",
+    "maxServers": "Максимум серверов",
+    "noLicenses": "У вас нет лицензий",
+    "assignToServer": "Назначить серверу",
+    "premium": "Premium",
+    "vip": "VIP"
+  },
+  "moderation": {
+    "logs": "Логи модерации",
+    "action": "Действие",
+    "moderator": "Модератор",
+    "target": "Цель",
+    "reason": "Причина",
+    "date": "Дата",
+    "noLogs": "Нет логов модерации",
+    "warn": "Предупреждение",
+    "mute": "Мут",
+    "unmute": "Размут",
+    "kick": "Кик",
+    "ban": "Бан",
+    "unban": "Разбан",
+    "clear": "Удаление сообщений"
+  },
+  "errors": {
+    "generic": "Произошла непредвиденная ошибка",
+    "networkError": "Ошибка соединения с сервером",
+    "sessionExpired": "Сессия истекла, войдите снова",
+    "permissionDenied": "Недостаточно прав для выполнения действия",
+    "invalidInput": "Неверные входные данные",
+    "notFound": "Ресурс не найден",
+    "serverNotFound": "Сервер не найден",
+    "licenseRequired": "Требуется лицензия",
+    "licenseExpired": "Лицензия истекла"
+  },
+  "bot": {
+    "commands": {
+      "help": {
+        "description": "Показывает список команд",
+        "title": "Список команд",
+        "usage": "Использование",
+        "noCommands": "Нет доступных команд"
+      },
+      "ping": {
+        "description": "Проверяет задержку бота",
+        "response": "Понг! Задержка: {latency}мс"
+      },
+      "warn": {
+        "description": "Выдает предупреждение пользователю",
+        "success": "Пользователь {user} получил предупреждение",
+        "reason": "Причина: {reason}",
+        "noReason": "Причина не указана"
+      },
+      "mute": {
+        "description": "Заглушает пользователя",
+        "success": "Пользователь {user} заглушен на {duration}",
+        "alreadyMuted": "Пользователь уже заглушен"
+      },
+      "unmute": {
+        "description": "Снимает мут с пользователя",
+        "success": "Пользователь {user} размучен",
+        "notMuted": "Пользователь не заглушен"
+      },
+      "clear": {
+        "description": "Удаляет сообщения из канала",
+        "success": "Удалено {count} сообщений",
+        "invalidAmount": "Введите число от 1 до 100"
+      },
+      "warnings": {
+        "description": "Показывает предупреждения пользователя",
+        "title": "Предупреждения пользователя {user}",
+        "noWarnings": "Нет предупреждений",
+        "warning": "Предупреждение #{id}",
+        "issuedBy": "Выдал: {moderator}",
+        "issuedAt": "Дата: {date}"
+      },
+      "play": {
+        "description": "Воспроизводит трек или плейлист",
+        "searching": "Поиск: {query}",
+        "nowPlaying": "Сейчас играет",
+        "addedToQueue": "Добавлено в очередь",
+        "noResults": "Ничего не найдено",
+        "notInVoice": "Вы должны быть в голосовом канале!",
+        "differentVoice": "Вы должны быть в том же голосовом канале, что и бот!"
+      },
+      "pause": {
+        "description": "Приостанавливает воспроизведение",
+        "success": "Воспроизведение приостановлено",
+        "notPlaying": "Ничего не воспроизводится"
+      },
+      "resume": {
+        "description": "Возобновляет воспроизведение",
+        "success": "Воспроизведение возобновлено",
+        "notPaused": "Воспроизведение не приостановлено"
+      },
+      "skip": {
+        "description": "Пропускает текущий трек",
+        "success": "Трек пропущен",
+        "emptyQueue": "Очередь пуста"
+      },
+      "stop": {
+        "description": "Останавливает воспроизведение и очищает очередь",
+        "success": "Воспроизведение остановлено"
+      },
+      "queue": {
+        "description": "Показывает очередь воспроизведения",
+        "title": "Очередь воспроизведения",
+        "empty": "Очередь пуста",
+        "nowPlaying": "Сейчас играет",
+        "upNext": "Следующие"
+      },
+      "volume": {
+        "description": "Устанавливает громкость плеера",
+        "success": "Громкость установлена на {volume}%",
+        "current": "Текущая громкость: {volume}%",
+        "invalidRange": "Громкость должна быть от 0 до 100"
+      },
+      "nowplaying": {
+        "description": "Показывает текущий трек",
+        "title": "Сейчас играет",
+        "notPlaying": "Ничего не воспроизводится"
+      },
+      "license": {
+        "description": "Показывает информацию о лицензии сервера",
+        "title": "Информация о лицензии",
+        "tier": "Уровень",
+        "status": "Статус",
+        "expiresAt": "Истекает",
+        "servers": "Серверы",
+        "noLicense": "Сервер не имеет лицензии"
+      },
+      "stats": {
+        "description": "Показывает статистику бота",
+        "title": "Статистика бота",
+        "servers": "Серверы",
+        "users": "Пользователи",
+        "uptime": "Время работы",
+        "memory": "Память",
+        "ping": "Пинг"
+      },
+      "leaderboard": {
+        "description": "Показывает таблицу лидеров",
+        "title": "Таблица лидеров",
+        "empty": "Нет данных",
+        "level": "Уровень",
+        "xp": "XP"
+      }
+    },
+    "events": {
+      "welcome": {
+        "defaultTitle": "Добро пожаловать на сервер,",
+        "defaultMessage": "Приятного времяпрепровождения!"
+      },
+      "goodbye": {
+        "defaultTitle": "До свидания,",
+        "defaultMessage": "Прощай!"
+      },
+      "levelUp": {
+        "title": "Повышение уровня!",
+        "message": "Поздравляем {user}! Вы достигли уровня {level}!"
+      },
+      "guildJoin": {
+        "welcome": "Спасибо за добавление меня на **{guild}**!",
+        "licenseInfo": "Уровень лицензии: **{tier}**",
+        "licenseKey": "Ключ лицензии: ||{key}||",
+        "helpHint": "Используйте `/help` чтобы начать!",
+        "noLicense": "К сожалению, ваш сервер не имеет активной лицензии.",
+        "buyLicense": "Чтобы использовать бота KiraEvo, приобретите лицензию: {url}",
+        "licenseExpired": "Я покинул сервер **{guild}** потому что лицензия истекла.",
+        "renewLicense": "Продлите лицензию: {url}",
+        "serverLimitReached": "Я покинул сервер **{guild}** потому что ваша лицензия достигла лимита серверов ({limit}).",
+        "upgradeLicense": "Улучшите лицензию: {url}"
+      },
+      "ticket": {
+        "created": "Тикет создан",
+        "welcome": "Добро пожаловать! Опишите вашу проблему, и поддержка ответит как можно скорее.",
+        "closed": "Тикет закрыт",
+        "closedBy": "Закрыл {user}"
+      },
+      "inviteLog": {
+        "title": "Новый участник",
+        "invitedBy": "Пригласил",
+        "inviteCode": "Код приглашения",
+        "totalInvites": "Всего приглашений"
+      }
+    },
+    "errors": {
+      "noPermission": "У вас нет прав для использования этой команды",
+      "botNoPermission": "Бот не имеет прав для выполнения этого действия",
+      "invalidUser": "Пользователь не найден",
+      "invalidChannel": "Канал не найден",
+      "invalidRole": "Роль не найдена",
+      "commandError": "Произошла ошибка при выполнении команды",
+      "cooldown": "Подождите {time} секунд перед повторным использованием команды",
+      "licenseRequired": "Эта команда требует активную лицензию",
+      "premiumRequired": "Эта команда требует лицензию Premium или выше",
+      "vipRequired": "Эта команда требует лицензию VIP"
+    }
+  }
+}

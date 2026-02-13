@@ -1,0 +1,45 @@
+2026-01-13 07:46:26 [32minfo[39m: Starting bot...
+2026-01-13 07:46:26 [32minfo[39m: Connecting to database...
+Executing (default): SELECT 1+1 AS result
+2026-01-13 07:46:26 [32minfo[39m: Database connection established
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'users' AND TABLE_SCHEMA = 'kira'
+Executing (default): SHOW INDEX FROM `users`
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'licenses' AND TABLE_SCHEMA = 'kira'
+Executing (default): SHOW INDEX FROM `licenses`
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'guilds' AND TABLE_SCHEMA = 'kira'
+Executing (default): SHOW INDEX FROM `guilds`
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'moderation_logs' AND TABLE_SCHEMA = 'kira'
+Executing (default): SHOW INDEX FROM `moderation_logs`
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'warnings' AND TABLE_SCHEMA = 'kira'
+Executing (default): SHOW INDEX FROM `warnings`
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'mutes' AND TABLE_SCHEMA = 'kira'
+Executing (default): SHOW INDEX FROM `mutes`
+Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'command_usage' AND TABLE_SCHEMA = 'kira'
+Executing (default): SHOW INDEX FROM `command_usage`
+2026-01-13 07:46:26 [32minfo[39m: Database models synchronized
+2026-01-13 07:46:26 [32minfo[39m: Loaded command: clear
+2026-01-13 07:46:26 [32minfo[39m: Loaded command: mute
+2026-01-13 07:46:26 [32minfo[39m: Loaded command: unmute
+2026-01-13 07:46:26 [32minfo[39m: Loaded command: warn
+2026-01-13 07:46:26 [32minfo[39m: Loaded command: license
+2026-01-13 07:46:26 [32minfo[39m: Loaded command: stats
+2026-01-13 07:46:26 [32minfo[39m: Loaded command: warnings
+2026-01-13 07:46:26 [32minfo[39m: Loaded 7 commands total
+2026-01-13 07:46:26 [32minfo[39m: Loaded event: guildCreate
+2026-01-13 07:46:26 [32minfo[39m: Loaded event: guildDelete
+2026-01-13 07:46:26 [32minfo[39m: Loaded event: interactionCreate
+2026-01-13 07:46:26 [32minfo[39m: Loaded event: clientReady
+2026-01-13 07:46:26 [32minfo[39m: Loaded 4 events total
+2026-01-13 07:46:27 [32minfo[39m: Logged in as Kira Evolved#3830
+2026-01-13 07:46:27 [32minfo[39m: Serving 1 guilds
+2026-01-13 07:46:27 [32minfo[39m: Validating all guild licenses...
+Executing (default): SELECT `Guild`.`id`, `Guild`.`guild_id` AS `guildId`, `Guild`.`guild_name` AS `guildName`, `Guild`.`license_id` AS `licenseId`, `Guild`.`owner_id` AS `ownerId`, `Guild`.`joined_at` AS `joinedAt`, `Guild`.`left_at` AS `leftAt`, `Guild`.`is_active` AS `isActive`, `Guild`.`settings`, `Guild`.`license_id`, `license`.`id` AS `license.id`, `license`.`license_key` AS `license.licenseKey`, `license`.`tier` AS `license.tier`, `license`.`max_servers` AS `license.maxServers`, `license`.`created_by_user_id` AS `license.createdByUserId`, `license`.`expires_at` AS `license.expiresAt`, `license`.`is_active` AS `license.isActive`, `license`.`last_verified_at` AS `license.lastVerifiedAt`, `license`.`metadata` AS `license.metadata`, `license`.`created_at` AS `license.created_at`, `license`.`created_by_user_id` AS `license.created_by_user_id` FROM `guilds` AS `Guild` LEFT OUTER JOIN `licenses` AS `license` ON `Guild`.`license_id` = `license`.`id` WHERE `Guild`.`guild_id` = '1459466575517192297' AND `Guild`.`is_active` = true;
+Executing (default): UPDATE `guilds` SET `guild_name`=?,`owner_id`=? WHERE `guild_id` = ?
+2026-01-13 07:46:27 [32minfo[39m: Guild Strefa Testowa (1459466575517192297) validated successfully
+2026-01-13 07:46:27 [32minfo[39m: Guild validation complete
+Executing (default): SELECT `Guild`.`id`, `Guild`.`guild_id` AS `guildId`, `Guild`.`guild_name` AS `guildName`, `Guild`.`license_id` AS `licenseId`, `Guild`.`owner_id` AS `ownerId`, `Guild`.`joined_at` AS `joinedAt`, `Guild`.`left_at` AS `leftAt`, `Guild`.`is_active` AS `isActive`, `Guild`.`settings`, `Guild`.`license_id`, `license`.`id` AS `license.id`, `license`.`license_key` AS `license.licenseKey`, `license`.`tier` AS `license.tier`, `license`.`max_servers` AS `license.maxServers`, `license`.`created_by_user_id` AS `license.createdByUserId`, `license`.`expires_at` AS `license.expiresAt`, `license`.`is_active` AS `license.isActive`, `license`.`last_verified_at` AS `license.lastVerifiedAt`, `license`.`metadata` AS `license.metadata`, `license`.`created_at` AS `license.created_at`, `license`.`created_by_user_id` AS `license.created_by_user_id` FROM `guilds` AS `Guild` LEFT OUTER JOIN `licenses` AS `license` ON `Guild`.`license_id` = `license`.`id` WHERE `Guild`.`guild_id` = '1459466575517192297' AND `Guild`.`is_active` = true;
+Executing (default): SELECT count(*) AS `count` FROM `guilds` AS `Guild` WHERE `Guild`.`license_id` = 1 AND `Guild`.`is_active` = true;
+2026-01-13 07:54:45 [31merror[39m: License command error: Received one or more errors
+(node:443832) Warning: Supplying "ephemeral" for interaction response options is deprecated. Utilize flags instead.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Executing (default): INSERT INTO `command_usage` (`id`,`guild_id`,`user_id`,`command_name`,`executed_at`,`success`,`error_message`) VALUES (DEFAULT,?,?,?,?,?,?);

@@ -1,0 +1,467 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "remove": "Remove",
+    "enable": "Enable",
+    "disable": "Disable",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "yes": "Yes",
+    "no": "No",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "refresh": "Refresh",
+    "settings": "Settings",
+    "language": "Language",
+    "polish": "Polish",
+    "english": "English",
+    "russian": "Russian",
+    "selectLanguage": "Select language",
+    "saveChanges": "Save changes",
+    "noData": "No data",
+    "notFound": "Not found",
+    "serverError": "Server error",
+    "unauthorized": "Unauthorized",
+    "forbidden": "Access denied",
+    "channel": "Channel",
+    "channels": "Channels",
+    "role": "Role",
+    "roles": "Roles",
+    "member": "Member",
+    "members": "Members",
+    "server": "Server",
+    "servers": "Servers",
+    "user": "User",
+    "users": "Users",
+    "bot": "Bot",
+    "online": "Online",
+    "offline": "Offline",
+    "today": "Today",
+    "yesterday": "Yesterday"
+  },
+  "nav": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "servers": "My servers",
+    "licenses": "Licenses",
+    "moderationLogs": "Moderation logs",
+    "buyLicense": "Buy license",
+    "promoCodes": "Promo codes",
+    "activateLicense": "Activate license",
+    "admin": "Admin",
+    "profile": "My profile",
+    "login": "Log in",
+    "logout": "Log out",
+    "searchServers": "Search servers..."
+  },
+  "login": {
+    "title": "Log in with Discord",
+    "subtitle": "Manage your bot from one place",
+    "loginButton": "Log in with Discord",
+    "badge": "Premium Discord Bot",
+    "description": "Powerful Discord bot with leveling system, moderation, giveaways, reaction roles and much more. Everything configurable via web panel.",
+    "inviteBot": "Invite bot",
+    "addToServer": "Add to server",
+    "openPanel": "Open panel",
+    "featuresTitle": "Everything you need",
+    "featuresSubtitle": "KiraEvo offers all features needed to manage your Discord community.",
+    "ctaTitle": "Ready to start?",
+    "ctaDescription": "Add KiraEvo to your server and configure everything in minutes.",
+    "ctaButton": "Add KiraEvo now",
+    "features": {
+      "automod": "Auto Moderation",
+      "automodDesc": "Automatic message moderation, word and link filtering.",
+      "leveling": "Leveling System",
+      "levelingDesc": "Reward active users with XP and level roles.",
+      "giveaways": "Giveaways",
+      "giveawaysDesc": "Organize contests with automatic winner selection.",
+      "reactionRoles": "Reaction Roles",
+      "reactionRolesDesc": "Let users choose roles through reactions.",
+      "customCommands": "Custom Commands",
+      "customCommandsDesc": "Create custom text commands for your server.",
+      "webDashboard": "Web Dashboard",
+      "webDashboardDesc": "Easy configuration of everything via browser."
+    },
+    "stats": {
+      "features": "Features",
+      "online": "Online",
+      "uptime": "Uptime"
+    },
+    "benefits": {
+      "benefit1": "No usage limits",
+      "benefit2": "Quick setup",
+      "benefit3": "Regular updates",
+      "benefit4": "Technical support"
+    },
+    "footer": {
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "rights": "All rights reserved."
+    }
+  },
+  "dashboard": {
+    "overview": "Overview",
+    "botCustomization": "Bot customization",
+    "automod": "Auto moderation",
+    "joinLeave": "Welcome messages",
+    "inviteLogger": "Invite Logger",
+    "leveling": "Leveling system",
+    "embedCreator": "Embed creator",
+    "reactionRoles": "Reaction Roles",
+    "tickets": "Ticket system",
+    "customCommands": "Commands",
+    "giveaways": "Giveaways",
+    "statsChannels": "Stats channels",
+    "serverNotFound": "Server not found",
+    "backToServers": "Back to server list",
+    "loadingServer": "Loading server data...",
+    "settingsSaved": "Settings saved!",
+    "settingsSaveFailed": "Failed to save settings",
+    "selectChannel": "Select channel...",
+    "selectRole": "Select role...",
+    "preview": "Preview",
+    "manageServer": "Manage server settings and modules.",
+    "expires": "Expires",
+    "never": "Never",
+    "reactionPanels": "Reaction Panels",
+    "botConfig": "Bot Configuration",
+    "botConfigDesc": "Set prefix for custom commands",
+    "commandPrefix": "Command Prefix",
+    "prefixHint": "Users will use this prefix for custom commands",
+    "saving": "Saving...",
+    "saveSettings": "Save Settings",
+    "prefixSaved": "Prefix settings saved!"
+  },
+  "botCustomization": {
+    "title": "Bot customization",
+    "nickname": "Bot nickname",
+    "nicknamePlaceholder": "Leave empty for default",
+    "nicknameHint": "Maximum 32 characters. Nickname will only be visible on this server.",
+    "avatar": "Bot avatar",
+    "avatarInfo": "Bot avatar is global - changing the avatar will be visible on all servers.",
+    "avatarFormats": "Supported formats: PNG, JPEG, GIF, WebP. Maximum size: 8MB.",
+    "removeAvatar": "Remove avatar (restore default)",
+    "avatarUrlPlaceholder": "Avatar image URL"
+  },
+  "joinLeave": {
+    "welcomeSettings": "Welcome settings",
+    "goodbyeSettings": "Goodbye settings",
+    "channel": "Channel",
+    "title": "Title",
+    "message": "Message",
+    "image": "Image (optional)",
+    "welcomePreview": "Welcome preview",
+    "goodbyePreview": "Goodbye preview",
+    "welcomeTitleDefault": "Welcome to the server,",
+    "goodbyeTitleDefault": "Goodbye,",
+    "messageContent": "Message content...",
+    "saveChanges": "Save Changes"
+  },
+  "automod": {
+    "title": "Auto moderation",
+    "description": "Automatically remove unwanted content",
+    "blockLinks": "Block links",
+    "blockLinksDesc": "Automatically delete messages containing HTTP/HTTPS links",
+    "bannedWords": "Banned words",
+    "bannedWordsDesc": "Messages with these words will be deleted",
+    "addWord": "Add word",
+    "wordPlaceholder": "word1, word2, word3...",
+    "wordList": "Word list (comma separated)",
+    "wordsOnList": "Currently {count} words on list",
+    "saveAutomod": "Save AutoMod Settings"
+  },
+  "leveling": {
+    "title": "Leveling system",
+    "enabled": "Leveling system enabled",
+    "channel": "Notification channel",
+    "channelDesc": "Channel where level up notifications will be sent",
+    "xpPerMessage": "XP per message",
+    "cooldown": "Cooldown (seconds)",
+    "levelUpMessage": "Level up message",
+    "levelUpImage": "Level up image",
+    "levelRoles": "Level roles",
+    "addLevelRole": "Add level role",
+    "level": "Level",
+    "noLevelRoles": "No assigned roles"
+  },
+  "reactionRoles": {
+    "title": "Reaction Roles",
+    "createPanel": "Create panel",
+    "panelTitle": "Panel title",
+    "panelDescription": "Panel description",
+    "targetChannel": "Target channel",
+    "addReaction": "Add reaction",
+    "emoji": "Emoji",
+    "role": "Role",
+    "noPanels": "No reaction panels",
+    "deletePanel": "Delete panel"
+  },
+  "tickets": {
+    "title": "Ticket system",
+    "enabled": "Ticket system enabled",
+    "category": "Ticket category",
+    "supportRole": "Support role",
+    "welcomeMessage": "Welcome message",
+    "buttonText": "Button text",
+    "buttonColor": "Button color"
+  },
+  "customCommands": {
+    "title": "Custom commands",
+    "create": "Create command",
+    "name": "Command name",
+    "response": "Response",
+    "noCommands": "No custom commands",
+    "deleteCommand": "Delete command",
+    "prefix": "Command prefix",
+    "slashOnly": "Slash commands only"
+  },
+  "giveaways": {
+    "title": "Giveaways",
+    "create": "Create giveaway",
+    "prize": "Prize",
+    "winners": "Number of winners",
+    "duration": "Duration",
+    "channel": "Channel",
+    "active": "Active",
+    "ended": "Ended",
+    "noGiveaways": "No giveaways"
+  },
+  "statsChannels": {
+    "title": "Stats channels",
+    "enabled": "Stats channels enabled",
+    "refreshInterval": "Refresh interval (minutes)",
+    "membersChannel": "Members channel",
+    "boostsChannel": "Boosts channel",
+    "onlineChannel": "Online channel",
+    "rolesChannel": "Roles channel",
+    "channelsChannel": "Channels channel"
+  },
+  "inviteLogger": {
+    "title": "Invite Logger",
+    "enabled": "Invite Logger enabled",
+    "logChannel": "Log channel",
+    "logChannelDesc": "Channel where invites will be logged"
+  },
+  "licenses": {
+    "title": "Licenses",
+    "myLicenses": "My licenses",
+    "buyLicense": "Buy license",
+    "licenseKey": "License key",
+    "tier": "Tier",
+    "status": "Status",
+    "active": "Active",
+    "expired": "Expired",
+    "expiresAt": "Expires",
+    "servers": "Servers",
+    "maxServers": "Maximum servers",
+    "noLicenses": "You don't have any licenses",
+    "assignToServer": "Assign to server",
+    "premium": "Premium",
+    "vip": "VIP"
+  },
+  "moderation": {
+    "logs": "Moderation logs",
+    "action": "Action",
+    "moderator": "Moderator",
+    "target": "Target",
+    "reason": "Reason",
+    "date": "Date",
+    "noLogs": "No moderation logs",
+    "warn": "Warning",
+    "mute": "Mute",
+    "unmute": "Unmute",
+    "kick": "Kick",
+    "ban": "Ban",
+    "unban": "Unban",
+    "clear": "Clear messages"
+  },
+  "errors": {
+    "generic": "An unexpected error occurred",
+    "networkError": "Connection error",
+    "sessionExpired": "Session expired, please log in again",
+    "permissionDenied": "Permission denied",
+    "invalidInput": "Invalid input",
+    "notFound": "Resource not found",
+    "serverNotFound": "Server not found",
+    "licenseRequired": "License required",
+    "licenseExpired": "License expired"
+  },
+  "bot": {
+    "commands": {
+      "help": {
+        "description": "Shows command list",
+        "title": "Command list",
+        "usage": "Usage",
+        "noCommands": "No available commands"
+      },
+      "ping": {
+        "description": "Checks bot latency",
+        "response": "Pong! Latency: {latency}ms"
+      },
+      "warn": {
+        "description": "Warns a user",
+        "success": "User {user} has been warned",
+        "reason": "Reason: {reason}",
+        "noReason": "No reason provided"
+      },
+      "mute": {
+        "description": "Mutes a user",
+        "success": "User {user} has been muted for {duration}",
+        "alreadyMuted": "User is already muted"
+      },
+      "unmute": {
+        "description": "Unmutes a user",
+        "success": "User {user} has been unmuted",
+        "notMuted": "User is not muted"
+      },
+      "clear": {
+        "description": "Clears messages from channel",
+        "success": "Deleted {count} messages",
+        "invalidAmount": "Please enter a number from 1 to 100"
+      },
+      "warnings": {
+        "description": "Shows user warnings",
+        "title": "Warnings for {user}",
+        "noWarnings": "No warnings",
+        "warning": "Warning #{id}",
+        "issuedBy": "By: {moderator}",
+        "issuedAt": "Date: {date}"
+      },
+      "play": {
+        "description": "Plays a song or playlist",
+        "searching": "Searching: {query}",
+        "nowPlaying": "Now playing",
+        "addedToQueue": "Added to queue",
+        "noResults": "No results found",
+        "notInVoice": "You must be in a voice channel!",
+        "differentVoice": "You must be in the same voice channel as the bot!"
+      },
+      "pause": {
+        "description": "Pauses playback",
+        "success": "Playback paused",
+        "notPlaying": "Nothing is playing"
+      },
+      "resume": {
+        "description": "Resumes playback",
+        "success": "Playback resumed",
+        "notPaused": "Playback is not paused"
+      },
+      "skip": {
+        "description": "Skips current track",
+        "success": "Track skipped",
+        "emptyQueue": "Queue is empty"
+      },
+      "stop": {
+        "description": "Stops playback and clears queue",
+        "success": "Playback stopped"
+      },
+      "queue": {
+        "description": "Shows playback queue",
+        "title": "Playback queue",
+        "empty": "Queue is empty",
+        "nowPlaying": "Now playing",
+        "upNext": "Up next"
+      },
+      "volume": {
+        "description": "Sets player volume",
+        "success": "Volume set to {volume}%",
+        "current": "Current volume: {volume}%",
+        "invalidRange": "Volume must be between 0 and 100"
+      },
+      "nowplaying": {
+        "description": "Shows currently playing track",
+        "title": "Now playing",
+        "notPlaying": "Nothing is playing"
+      },
+      "license": {
+        "description": "Shows server license information",
+        "title": "License information",
+        "tier": "Tier",
+        "status": "Status",
+        "expiresAt": "Expires",
+        "servers": "Servers",
+        "noLicense": "Server has no license"
+      },
+      "stats": {
+        "description": "Shows bot statistics",
+        "title": "Bot statistics",
+        "servers": "Servers",
+        "users": "Users",
+        "uptime": "Uptime",
+        "memory": "Memory",
+        "ping": "Ping"
+      },
+      "leaderboard": {
+        "description": "Shows level leaderboard",
+        "title": "Level leaderboard",
+        "empty": "No data",
+        "level": "Level",
+        "xp": "XP"
+      }
+    },
+    "events": {
+      "welcome": {
+        "defaultTitle": "Welcome to the server,",
+        "defaultMessage": "Have fun!"
+      },
+      "goodbye": {
+        "defaultTitle": "Goodbye,",
+        "defaultMessage": "Farewell!"
+      },
+      "levelUp": {
+        "title": "Level up!",
+        "message": "Congratulations {user}! You reached level {level}!"
+      },
+      "guildJoin": {
+        "welcome": "Thank you for adding me to **{guild}**!",
+        "licenseInfo": "License tier: **{tier}**",
+        "licenseKey": "License key: ||{key}||",
+        "helpHint": "Use `/help` to get started!",
+        "noLicense": "Unfortunately, your server doesn't have an active license.",
+        "buyLicense": "To use KiraEvo bot, purchase a license at: {url}",
+        "licenseExpired": "I left server **{guild}** because the license expired.",
+        "renewLicense": "Renew your license at: {url}",
+        "serverLimitReached": "I left server **{guild}** because your license reached the server limit ({limit}).",
+        "upgradeLicense": "Upgrade your license at: {url}"
+      },
+      "ticket": {
+        "created": "Ticket created",
+        "welcome": "Welcome! Describe your issue and support will respond as soon as possible.",
+        "closed": "Ticket closed",
+        "closedBy": "Closed by {user}"
+      },
+      "inviteLog": {
+        "title": "New member",
+        "invitedBy": "Invited by",
+        "inviteCode": "Invite code",
+        "totalInvites": "Total invites"
+      }
+    },
+    "errors": {
+      "noPermission": "You don't have permission to use this command",
+      "botNoPermission": "Bot doesn't have permission to perform this action",
+      "invalidUser": "User not found",
+      "invalidChannel": "Channel not found",
+      "invalidRole": "Role not found",
+      "commandError": "An error occurred while executing the command",
+      "cooldown": "Please wait {time} seconds before using this command again",
+      "licenseRequired": "This command requires an active license",
+      "premiumRequired": "This command requires Premium license or higher",
+      "vipRequired": "This command requires VIP license"
+    }
+  }
+}

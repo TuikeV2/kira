@@ -1,0 +1,467 @@
+{
+  "common": {
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "delete": "Usun",
+    "edit": "Edytuj",
+    "add": "Dodaj",
+    "remove": "Usun",
+    "enable": "Wlacz",
+    "disable": "Wylacz",
+    "enabled": "Wlaczony",
+    "disabled": "Wylaczony",
+    "yes": "Tak",
+    "no": "Nie",
+    "loading": "Ladowanie...",
+    "error": "Blad",
+    "success": "Sukces",
+    "warning": "Ostrzezenie",
+    "info": "Informacja",
+    "confirm": "Potwierdz",
+    "back": "Powrot",
+    "next": "Dalej",
+    "previous": "Poprzedni",
+    "search": "Szukaj",
+    "filter": "Filtruj",
+    "sort": "Sortuj",
+    "refresh": "Odswiez",
+    "settings": "Ustawienia",
+    "language": "Jezyk",
+    "polish": "Polski",
+    "english": "Angielski",
+    "russian": "Rosyjski",
+    "selectLanguage": "Wybierz jezyk",
+    "saveChanges": "Zapisz zmiany",
+    "noData": "Brak danych",
+    "notFound": "Nie znaleziono",
+    "serverError": "Blad serwera",
+    "unauthorized": "Brak autoryzacji",
+    "forbidden": "Brak dostepu",
+    "channel": "Kanal",
+    "channels": "Kanaly",
+    "role": "Rola",
+    "roles": "Role",
+    "member": "Czlonek",
+    "members": "Czlonkowie",
+    "server": "Serwer",
+    "servers": "Serwery",
+    "user": "Uzytkownik",
+    "users": "Uzytkownicy",
+    "bot": "Bot",
+    "online": "Online",
+    "offline": "Offline",
+    "today": "Dzisiaj",
+    "yesterday": "Wczoraj"
+  },
+  "nav": {
+    "home": "Strona glowna",
+    "dashboard": "Panel",
+    "servers": "Moje serwery",
+    "licenses": "Licencje",
+    "moderationLogs": "Logi moderacji",
+    "buyLicense": "Kup licencje",
+    "promoCodes": "Kody promo",
+    "activateLicense": "Aktywuj licencje",
+    "admin": "Admin",
+    "profile": "Moj profil",
+    "login": "Zaloguj sie",
+    "logout": "Wyloguj sie",
+    "searchServers": "Szukaj serwerow..."
+  },
+  "login": {
+    "title": "Zaloguj sie przez Discord",
+    "subtitle": "Zarzadzaj swoim botem z jednego miejsca",
+    "loginButton": "Zaloguj sie przez Discord",
+    "badge": "Bot Discord Premium",
+    "description": "Potezny bot Discord z systemem poziomow, moderacja, giveaways, reaction roles i wiele wiecej. Wszystko konfigurowalne przez panel webowy.",
+    "inviteBot": "Zapros bota",
+    "addToServer": "Dodaj na serwer",
+    "openPanel": "Otworz panel",
+    "featuresTitle": "Wszystko czego potrzebujesz",
+    "featuresSubtitle": "KiraEvo oferuje wszystkie funkcje potrzebne do zarzadzania spolecznoscia Discord.",
+    "ctaTitle": "Gotowy zaczac?",
+    "ctaDescription": "Dodaj KiraEvo na swoj serwer i skonfiguruj wszystko w kilka minut.",
+    "ctaButton": "Dodaj KiraEvo teraz",
+    "features": {
+      "automod": "Auto Moderacja",
+      "automodDesc": "Automatyczne moderowanie wiadomosci, filtrowanie slow i linkow.",
+      "leveling": "System Poziomow",
+      "levelingDesc": "Nagradzaj aktywnych uzytkownikow XP i rolami za poziomy.",
+      "giveaways": "Giveaways",
+      "giveawaysDesc": "Organizuj konkursy i losowania z automatycznym wyborem zwyciezcow.",
+      "reactionRoles": "Reaction Roles",
+      "reactionRolesDesc": "Pozwol uzytkownikom wybierac role poprzez reakcje.",
+      "customCommands": "Custom Commands",
+      "customCommandsDesc": "Tworzenie wlasnych komend tekstowych dla serwera.",
+      "webDashboard": "Web Dashboard",
+      "webDashboardDesc": "Latwa konfiguracja wszystkiego przez przegladarke."
+    },
+    "stats": {
+      "features": "Funkcji",
+      "online": "Online",
+      "uptime": "Uptime"
+    },
+    "benefits": {
+      "benefit1": "Bez limitow uzycia",
+      "benefit2": "Szybka konfiguracja",
+      "benefit3": "Regularne aktualizacje",
+      "benefit4": "Wsparcie techniczne"
+    },
+    "footer": {
+      "terms": "Regulamin",
+      "privacy": "Prywatnosc",
+      "rights": "Wszelkie prawa zastrzezone."
+    }
+  },
+  "dashboard": {
+    "overview": "Przeglad",
+    "botCustomization": "Personalizacja bota",
+    "automod": "Auto moderacja",
+    "joinLeave": "Powitania",
+    "inviteLogger": "Invite Logger",
+    "leveling": "System poziomow",
+    "embedCreator": "Kreator wiadomosci",
+    "reactionRoles": "Reaction Roles",
+    "tickets": "System ticketow",
+    "customCommands": "Komendy",
+    "giveaways": "Giveaways",
+    "statsChannels": "Kanaly statystyk",
+    "serverNotFound": "Serwer nie zostal znaleziony",
+    "backToServers": "Wroc do listy serwerow",
+    "loadingServer": "Ladowanie danych serwera...",
+    "settingsSaved": "Ustawienia zostaly zapisane!",
+    "settingsSaveFailed": "Nie udalo sie zapisac ustawien",
+    "selectChannel": "Wybierz kanal...",
+    "selectRole": "Wybierz role...",
+    "preview": "Podglad",
+    "manageServer": "Zarzadzaj ustawieniami i modulami serwera.",
+    "expires": "Wygasa",
+    "never": "Nigdy",
+    "reactionPanels": "Panele Reakcji",
+    "botConfig": "Konfiguracja Bota",
+    "botConfigDesc": "Ustaw prefix dla komend niestandardowych",
+    "commandPrefix": "Prefix Komend",
+    "prefixHint": "Uzytkownicy beda uzywac tego prefiksu dla niestandardowych komend",
+    "saving": "Zapisywanie...",
+    "saveSettings": "Zapisz Ustawienia",
+    "prefixSaved": "Ustawienia prefiksu zostaly zapisane!"
+  },
+  "botCustomization": {
+    "title": "Personalizacja bota",
+    "nickname": "Pseudonim bota",
+    "nicknamePlaceholder": "Pozostaw puste dla domyslnego",
+    "nicknameHint": "Maksymalnie 32 znaki. Pseudonim bedzie widoczny tylko na tym serwerze.",
+    "avatar": "Avatar bota",
+    "avatarInfo": "Avatar bota jest globalny - zmiana avatara bedzie widoczna na wszystkich serwerach.",
+    "avatarFormats": "Obslugiwane formaty: PNG, JPEG, GIF, WebP. Maksymalny rozmiar: 8MB.",
+    "removeAvatar": "Usun avatar (przywroc domyslny)",
+    "avatarUrlPlaceholder": "URL do obrazka avatara"
+  },
+  "joinLeave": {
+    "welcomeSettings": "Ustawienia powitania",
+    "goodbyeSettings": "Ustawienia pozegnania",
+    "channel": "Kanal",
+    "title": "Tytul",
+    "message": "Wiadomosc",
+    "image": "Obrazek (opcjonalny)",
+    "welcomePreview": "Podglad powitania",
+    "goodbyePreview": "Podglad pozegnania",
+    "welcomeTitleDefault": "Witaj na serwerze,",
+    "goodbyeTitleDefault": "Do widzenia,",
+    "messageContent": "Tresc wiadomosci...",
+    "saveChanges": "Zapisz Zmiany"
+  },
+  "automod": {
+    "title": "Auto moderacja",
+    "description": "Automatyczne usuwanie niechcianych tresci",
+    "blockLinks": "Blokowanie Linkow",
+    "blockLinksDesc": "Automatycznie usuwaj wiadomosci zawierajace linki HTTP/HTTPS",
+    "bannedWords": "Zakazane Slowa",
+    "bannedWordsDesc": "Wiadomosci z tymi slowami beda usuwane",
+    "addWord": "Dodaj slowo",
+    "wordPlaceholder": "slowo1, slowo2, slowo3...",
+    "wordList": "Lista slow (oddzielone przecinkami)",
+    "wordsOnList": "Aktualnie {count} slow na liscie",
+    "saveAutomod": "Zapisz Ustawienia AutoMod"
+  },
+  "leveling": {
+    "title": "System poziomow",
+    "enabled": "System poziomow wlaczony",
+    "channel": "Kanal powiadomien",
+    "channelDesc": "Kanal, na ktorym beda wysylane powiadomienia o awansie",
+    "xpPerMessage": "XP za wiadomosc",
+    "cooldown": "Cooldown (sekundy)",
+    "levelUpMessage": "Wiadomosc o awansie",
+    "levelUpImage": "Obrazek awansu",
+    "levelRoles": "Role za poziom",
+    "addLevelRole": "Dodaj role za poziom",
+    "level": "Poziom",
+    "noLevelRoles": "Brak przypisanych rol"
+  },
+  "reactionRoles": {
+    "title": "Reaction Roles",
+    "createPanel": "Utworz panel",
+    "panelTitle": "Tytul panelu",
+    "panelDescription": "Opis panelu",
+    "targetChannel": "Kanal docelowy",
+    "addReaction": "Dodaj reakcje",
+    "emoji": "Emoji",
+    "role": "Rola",
+    "noPanels": "Brak paneli reakcji",
+    "deletePanel": "Usun panel"
+  },
+  "tickets": {
+    "title": "System ticketow",
+    "enabled": "System ticketow wlaczony",
+    "category": "Kategoria ticketow",
+    "supportRole": "Rola supportu",
+    "welcomeMessage": "Wiadomosc powitalna",
+    "buttonText": "Tekst przycisku",
+    "buttonColor": "Kolor przycisku"
+  },
+  "customCommands": {
+    "title": "Komendy niestandardowe",
+    "create": "Utworz komende",
+    "name": "Nazwa komendy",
+    "response": "Odpowiedz",
+    "noCommands": "Brak komend niestandardowych",
+    "deleteCommand": "Usun komende",
+    "prefix": "Prefix komend",
+    "slashOnly": "Tylko komendy slash"
+  },
+  "giveaways": {
+    "title": "Giveaways",
+    "create": "Utworz giveaway",
+    "prize": "Nagroda",
+    "winners": "Liczba zwyciezcow",
+    "duration": "Czas trwania",
+    "channel": "Kanal",
+    "active": "Aktywne",
+    "ended": "Zakonczone",
+    "noGiveaways": "Brak giveaways"
+  },
+  "statsChannels": {
+    "title": "Kanaly statystyk",
+    "enabled": "Kanaly statystyk wlaczone",
+    "refreshInterval": "Interwal odswiezania (minuty)",
+    "membersChannel": "Kanal czlonkow",
+    "boostsChannel": "Kanal boostow",
+    "onlineChannel": "Kanal online",
+    "rolesChannel": "Kanal rol",
+    "channelsChannel": "Kanal kanalow"
+  },
+  "inviteLogger": {
+    "title": "Invite Logger",
+    "enabled": "Invite Logger wlaczony",
+    "logChannel": "Kanal logow",
+    "logChannelDesc": "Kanal, na ktorym beda logowane zaproszenia"
+  },
+  "licenses": {
+    "title": "Licencje",
+    "myLicenses": "Moje licencje",
+    "buyLicense": "Kup licencje",
+    "licenseKey": "Klucz licencji",
+    "tier": "Poziom",
+    "status": "Status",
+    "active": "Aktywna",
+    "expired": "Wygasla",
+    "expiresAt": "Wygasa",
+    "servers": "Serwery",
+    "maxServers": "Maksymalna liczba serwerow",
+    "noLicenses": "Nie posiadasz zadnych licencji",
+    "assignToServer": "Przypisz do serwera",
+    "premium": "Premium",
+    "vip": "VIP"
+  },
+  "moderation": {
+    "logs": "Logi moderacji",
+    "action": "Akcja",
+    "moderator": "Moderator",
+    "target": "Cel",
+    "reason": "Powod",
+    "date": "Data",
+    "noLogs": "Brak logow moderacji",
+    "warn": "Ostrzezenie",
+    "mute": "Wyciszenie",
+    "unmute": "Odciszenie",
+    "kick": "Wyrzucenie",
+    "ban": "Ban",
+    "unban": "Unban",
+    "clear": "Usuniecie wiadomosci"
+  },
+  "errors": {
+    "generic": "Wystapil nieoczekiwany blad",
+    "networkError": "Blad polaczenia z serwerem",
+    "sessionExpired": "Sesja wygasla, zaloguj sie ponownie",
+    "permissionDenied": "Brak uprawnien do wykonania tej akcji",
+    "invalidInput": "Nieprawidlowe dane wejsciowe",
+    "notFound": "Nie znaleziono zasobu",
+    "serverNotFound": "Serwer nie zostal znaleziony",
+    "licenseRequired": "Wymagana licencja",
+    "licenseExpired": "Licencja wygasla"
+  },
+  "bot": {
+    "commands": {
+      "help": {
+        "description": "Wyswietla liste komend",
+        "title": "Lista komend",
+        "usage": "Uzycie",
+        "noCommands": "Brak dostepnych komend"
+      },
+      "ping": {
+        "description": "Sprawdza opoznienie bota",
+        "response": "Pong! Opoznienie: {latency}ms"
+      },
+      "warn": {
+        "description": "Ostrzega uzytkownika",
+        "success": "Uzytkownik {user} zostal ostrzezony",
+        "reason": "Powod: {reason}",
+        "noReason": "Nie podano powodu"
+      },
+      "mute": {
+        "description": "Wycisza uzytkownika",
+        "success": "Uzytkownik {user} zostal wyciszony na {duration}",
+        "alreadyMuted": "Uzytkownik jest juz wyciszony"
+      },
+      "unmute": {
+        "description": "Odcisza uzytkownika",
+        "success": "Uzytkownik {user} zostal odciszony",
+        "notMuted": "Uzytkownik nie jest wyciszony"
+      },
+      "clear": {
+        "description": "Usuwa wiadomosci z kanalu",
+        "success": "Usunieto {count} wiadomosci",
+        "invalidAmount": "Podaj liczbe od 1 do 100"
+      },
+      "warnings": {
+        "description": "Wyswietla ostrzezenia uzytkownika",
+        "title": "Ostrzezenia uzytkownika {user}",
+        "noWarnings": "Brak ostrzezen",
+        "warning": "Ostrzezenie #{id}",
+        "issuedBy": "Przez: {moderator}",
+        "issuedAt": "Data: {date}"
+      },
+      "play": {
+        "description": "Odtwarza utwor lub playliste",
+        "searching": "Szukam: {query}",
+        "nowPlaying": "Teraz gra",
+        "addedToQueue": "Dodano do kolejki",
+        "noResults": "Nie znaleziono wynikow",
+        "notInVoice": "Musisz byc na kanale glosowym!",
+        "differentVoice": "Musisz byc na tym samym kanale glosowym co bot!"
+      },
+      "pause": {
+        "description": "Wstrzymuje odtwarzanie",
+        "success": "Odtwarzanie wstrzymane",
+        "notPlaying": "Nic nie jest odtwarzane"
+      },
+      "resume": {
+        "description": "Wznawia odtwarzanie",
+        "success": "Odtwarzanie wznowione",
+        "notPaused": "Odtwarzanie nie jest wstrzymane"
+      },
+      "skip": {
+        "description": "Pomija aktualny utwor",
+        "success": "Pominieto utwor",
+        "emptyQueue": "Kolejka jest pusta"
+      },
+      "stop": {
+        "description": "Zatrzymuje odtwarzanie i czysci kolejke",
+        "success": "Odtwarzanie zatrzymane"
+      },
+      "queue": {
+        "description": "Wyswietla kolejke odtwarzania",
+        "title": "Kolejka odtwarzania",
+        "empty": "Kolejka jest pusta",
+        "nowPlaying": "Teraz gra",
+        "upNext": "Nastepne w kolejce"
+      },
+      "volume": {
+        "description": "Ustawia glosnosc odtwarzacza",
+        "success": "Glosnosc ustawiona na {volume}%",
+        "current": "Aktualna glosnosc: {volume}%",
+        "invalidRange": "Glosnosc musi byc od 0 do 100"
+      },
+      "nowplaying": {
+        "description": "Wyswietla aktualnie odtwarzany utwor",
+        "title": "Teraz gra",
+        "notPlaying": "Nic nie jest odtwarzane"
+      },
+      "license": {
+        "description": "Wyswietla informacje o licencji serwera",
+        "title": "Informacje o licencji",
+        "tier": "Poziom",
+        "status": "Status",
+        "expiresAt": "Wygasa",
+        "servers": "Serwery",
+        "noLicense": "Serwer nie posiada licencji"
+      },
+      "stats": {
+        "description": "Wyswietla statystyki bota",
+        "title": "Statystyki bota",
+        "servers": "Serwery",
+        "users": "Uzytkownicy",
+        "uptime": "Czas dzialania",
+        "memory": "Pamiec",
+        "ping": "Ping"
+      },
+      "leaderboard": {
+        "description": "Wyswietla ranking poziomow",
+        "title": "Ranking poziomow",
+        "empty": "Brak danych",
+        "level": "Poziom",
+        "xp": "XP"
+      }
+    },
+    "events": {
+      "welcome": {
+        "defaultTitle": "Witaj na serwerze,",
+        "defaultMessage": "Milej zabawy!"
+      },
+      "goodbye": {
+        "defaultTitle": "Do widzenia,",
+        "defaultMessage": "Zegnamy!"
+      },
+      "levelUp": {
+        "title": "Awans!",
+        "message": "Gratulacje {user}! Osiagnales poziom {level}!"
+      },
+      "guildJoin": {
+        "welcome": "Dziekuje za dodanie mnie do **{guild}**!",
+        "licenseInfo": "Poziom licencji: **{tier}**",
+        "licenseKey": "Klucz licencji: ||{key}||",
+        "helpHint": "Uzyj `/help` aby rozpoczac!",
+        "noLicense": "Niestety, Twoj serwer nie posiada aktywnej licencji.",
+        "buyLicense": "Aby korzystac z bota KiraEvo, zakup licencje na naszej stronie: {url}",
+        "licenseExpired": "Opuscilem serwer **{guild}** poniewaz licencja wygasla.",
+        "renewLicense": "Odnow licencje na stronie: {url}",
+        "serverLimitReached": "Opuscilem serwer **{guild}** poniewaz Twoja licencja osiagnela limit serwerow ({limit}).",
+        "upgradeLicense": "Ulepsz licencje na stronie: {url}"
+      },
+      "ticket": {
+        "created": "Ticket utworzony",
+        "welcome": "Witaj! Opisz swoj problem, a support odpowie najszybciej jak to mozliwe.",
+        "closed": "Ticket zamkniety",
+        "closedBy": "Zamknieto przez {user}"
+      },
+      "inviteLog": {
+        "title": "Nowy czlonek",
+        "invitedBy": "Zaproszony przez",
+        "inviteCode": "Kod zaproszenia",
+        "totalInvites": "Laczna liczba zaproszen"
+      }
+    },
+    "errors": {
+      "noPermission": "Nie masz uprawnien do uzycia tej komendy",
+      "botNoPermission": "Bot nie ma uprawnien do wykonania tej akcji",
+      "invalidUser": "Nie znaleziono uzytkownika",
+      "invalidChannel": "Nie znaleziono kanalu",
+      "invalidRole": "Nie znaleziono roli",
+      "commandError": "Wystapil blad podczas wykonywania komendy",
+      "cooldown": "Poczekaj {time} sekund przed ponownym uzyciem komendy",
+      "licenseRequired": "Ta komenda wymaga aktywnej licencji",
+      "premiumRequired": "Ta komenda wymaga licencji Premium lub wyzszej",
+      "vipRequired": "Ta komenda wymaga licencji VIP"
+    }
+  }
+}

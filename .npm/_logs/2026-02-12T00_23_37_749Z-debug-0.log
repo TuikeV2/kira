@@ -1,0 +1,18 @@
+0 verbose cli /usr/local/bin/node /usr/local/bin/npm
+1 info using npm@11.9.0
+2 info using node@v20.20.0
+3 silly config load:file:/usr/local/lib/node_modules/npm/npmrc
+4 info config found workspace root at /home/container
+5 silly config load:file:/home/container/.npmrc
+6 silly config load:file:/usr/local/etc/npmrc
+7 verbose title npm run
+8 verbose argv "run"
+9 verbose logfile logs-max:10 dir:/home/container/.npm/_logs/2026-02-12T00_23_37_749Z-
+10 verbose logfile /home/container/.npm/_logs/2026-02-12T00_23_37_749Z-debug-0.log
+11 silly logfile done cleaning log files
+12 verbose cwd /home/container/packages/api/src
+13 verbose os Linux 6.1.0-42-cloud-amd64
+14 verbose node v20.20.0
+15 verbose npm  v11.9.0
+16 verbose exit 0
+17 info ok
