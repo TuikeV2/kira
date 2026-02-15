@@ -6,6 +6,7 @@ const { authenticateToken } = require('../middleware/auth.middleware');
 router.get('/discord', authController.initiateDiscordOAuth);
 router.get('/discord/callback', authController.handleDiscordCallback);
 router.get('/me', authenticateToken, authController.getCurrentUser);
+router.get('/app-token/:sessionId', authController.getAppToken);
 router.post('/logout', authenticateToken, authController.logout);
 
 module.exports = router;

@@ -58,7 +58,8 @@
     "neverExpires": "Never",
     "unlimited": "Unlimited",
     "darkMode": "Dark mode",
-    "notifications": "Notifications"
+    "notifications": "Notifications",
+    "all": "All"
   },
   "nav": {
     "home": "Home",
@@ -74,7 +75,13 @@
     "myAccount": "My Account",
     "login": "Log in",
     "logout": "Log out",
-    "searchServers": "Search servers..."
+    "searchServers": "Search servers...",
+    "helpCenter": "Help Center",
+    "downloadApp": "Download app",
+    "backToPanel": "Back to panel",
+    "allServers": "All Servers",
+    "products": "Products",
+    "fullSystemAccess": "Full system access"
   },
   "login": {
     "title": "Log in with Discord",
@@ -90,6 +97,8 @@
     "ctaTitle": "Ready to start?",
     "ctaDescription": "Add KiraEvo to your server and configure everything in minutes.",
     "ctaButton": "Add KiraEvo now",
+    "discordLogin": "Login with Discord",
+    "backToHome": "Back to Home",
     "features": {
       "automod": "Auto Moderation",
       "automodDesc": "Automatic message moderation, word and link filtering.",
@@ -115,11 +124,19 @@
       "benefit3": "Regular updates",
       "benefit4": "Technical support"
     },
+    "pricingTitle": "Choose your plan",
+    "pricingSubtitle": "Unlock the full potential of KiraEvo for your server",
     "footer": {
       "terms": "Terms of Service",
       "privacy": "Privacy Policy",
       "rights": "All rights reserved."
     }
+  },
+  "landing": {
+    "statsServers": "Servers",
+    "statsUsers": "Users",
+    "statsCommands": "Commands / day",
+    "statsUptime": "Uptime"
   },
   "dashboard": {
     "overview": "Overview",
@@ -137,6 +154,22 @@
     "tempVoice": "Temp Channels",
     "music": "Music",
     "musicDesc": "Configure the music bot and 24/7 mode",
+    "overviewDesc": "Server overview, stats and basic configuration",
+    "botCustomizationDesc": "Customize bot nickname and language",
+    "automodDesc": "Automatic message moderation and filters",
+    "joinLeaveDesc": "Welcome and goodbye messages for members",
+    "inviteLoggerDesc": "Track server invites and who invited whom",
+    "levelingDesc": "XP system with level roles and rewards",
+    "embedCreatorDesc": "Create and send custom embedded messages",
+    "reactionRolesDesc": "Self-assignable roles via reactions",
+    "ticketsDesc": "Support ticket system for your server",
+    "customCommandsDesc": "Create custom text and embed commands",
+    "giveawaysDesc": "Host giveaways with custom requirements",
+    "statsChannelsDesc": "Auto-updating statistics channels",
+    "tempVoiceDesc": "Temporary voice channels for users",
+    "moduleEnabled": "Module enabled",
+    "moduleDisabled": "Module disabled",
+    "backToModules": "Back to modules",
     "categories": {
       "main": "Main",
       "management": "Management",
@@ -623,7 +656,9 @@
     "notFound": "Resource not found",
     "serverNotFound": "Server not found",
     "licenseRequired": "License required",
-    "licenseExpired": "License expired"
+    "licenseExpired": "License expired",
+    "notFoundDesc": "The page you are looking for does not exist or has been moved.",
+    "offline": "You are offline. Some features may not work."
   },
   "pages": {
     "adminDashboard": {
@@ -807,7 +842,11 @@
       "licenseExpiring": "Your license expires soon!",
       "remaining": "remaining",
       "getStarted": "Get Started with KiraEvo",
-      "getStartedDesc": "Add the bot to your server and activate a license to unlock all features"
+      "getStartedDesc": "Add the bot to your server and activate a license to unlock all features",
+      "categorycore": "Core",
+      "categorymanagement": "Management",
+      "categoryengagement": "Engagement",
+      "categoryutilities": "Utilities"
     },
     "moderationLogs": {
       "title": "Moderation Logs",
@@ -1247,5 +1286,104 @@
       "premiumRequired": "This command requires Premium license or higher",
       "vipRequired": "This command requires VIP license"
     }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "empty": "No notifications",
+    "justNow": "just now",
+    "unread": "unread",
+    "allRead": "All caught up",
+    "unreadOnly": "Unread",
+    "markRead": "Mark as read",
+    "markAllRead": "Mark all as read",
+    "viewAll": "View all notifications",
+    "clearAll": "Clear all",
+    "allMarkedRead": "All notifications marked as read",
+    "allCleared": "All notifications cleared",
+    "noNotifications": "No notifications",
+    "noNotificationsDesc": "You're all caught up!",
+    "fetchError": "Failed to load notifications"
+  },
+  "help": {
+    "title": "Help Center",
+    "subtitle": "Find answers and learn how to use KiraEvo",
+    "searchPlaceholder": "Search for help...",
+    "discordSupport": "Discord Support",
+    "discordSupportDesc": "Get help from the community",
+    "documentation": "Documentation",
+    "documentationDesc": "Detailed guides and API docs",
+    "quickStart": "Quick Start",
+    "quickStartDesc": "Set up KiraEvo in 5 minutes",
+    "faqTitle": "Frequently Asked Questions",
+    "noResults": "No results found",
+    "moduleGuides": "Module Guides",
+    "gettingStarted": "Getting Started",
+    "licenses": "Licenses",
+    "moderation": "Moderation",
+    "modules": "Modules",
+    "faq": {
+      "howToAddBot": "How do I add KiraEvo to my server?",
+      "howToAddBotAnswer": "Click 'Add Bot' on the landing page or dashboard. You'll be redirected to Discord to authorize the bot. Select your server and confirm the permissions.",
+      "howToActivateLicense": "How do I activate a license?",
+      "howToActivateLicenseAnswer": "Go to 'Activate License' in the sidebar. Enter your license key and select the server you want to activate it on. Premium and VIP licenses unlock additional modules and features.",
+      "howToConfigureModules": "How do I configure bot modules?",
+      "howToConfigureModulesAnswer": "Navigate to your server dashboard, then click on any module card to open its configuration. Use the toggle switch on each card to enable/disable modules.",
+      "licenseTiers": "What are the license tiers?",
+      "licenseTiersAnswer": "Free: basic features. Premium: advanced modules, custom commands, leveling. VIP: all features, priority support, higher limits, exclusive modules.",
+      "licenseExpiry": "What happens when my license expires?",
+      "licenseExpiryAnswer": "Premium features will be disabled, but basic bot functionality remains. Your configuration is saved and will be restored when you renew.",
+      "licenseTransfer": "Can I transfer my license to another server?",
+      "licenseTransferAnswer": "Yes, you can deactivate a license from one server and activate it on another through the 'My Licenses' page.",
+      "automodSetup": "How do I set up AutoMod?",
+      "automodSetupAnswer": "Go to your server dashboard > AutoMod module. Enable the filters you need (spam, links, caps, etc.) and configure thresholds and actions for each filter type.",
+      "moderationLogs": "Where can I see moderation logs?",
+      "moderationLogsAnswer": "Click 'Moderation Logs' in the sidebar to view all moderation actions across your servers.",
+      "levelingSetup": "How does the leveling system work?",
+      "levelingSetupAnswer": "Enable the Leveling module in your server dashboard. Users earn XP by chatting. Configure XP rates, level-up messages, role rewards, and ignored channels.",
+      "ticketSystem": "How do I set up tickets?",
+      "ticketSystemAnswer": "Enable Tickets in your server dashboard. Create categories, configure the ticket panel, and send it to a channel.",
+      "customCommands": "Can I create custom commands?",
+      "customCommandsAnswer": "Yes! Go to Custom Commands in your server dashboard. Create slash commands with custom responses, embeds, and actions. Available with Premium and VIP licenses."
+    },
+    "guide": {
+      "automod": "Automatic content filtering and spam protection",
+      "joinLeave": "Welcome messages and farewell announcements",
+      "leveling": "XP system with level roles and leaderboards",
+      "tickets": "Support ticket system with categories",
+      "giveaways": "Create and manage server giveaways",
+      "customCommands": "Create your own slash commands",
+      "music": "Play music in voice channels",
+      "moderation": "Warn, mute, ban commands and logging"
+    }
+  },
+  "download": {
+    "title": "Download KiraEvo App",
+    "subtitle": "Manage your Discord bot on the go with our Android app",
+    "downloadButton": "Download APK",
+    "featuresTitle": "App Features",
+    "features": {
+      "dashboard": "Full dashboard access",
+      "servers": "Server management",
+      "notifications": "Push notifications",
+      "modules": "Module configuration"
+    },
+    "installTitle": "Installation Instructions",
+    "step1": "Download the APK file by clicking the button above.",
+    "step2": "Open your device Settings > Security and enable \"Install from unknown sources\" (or allow your browser to install apps).",
+    "step3": "Open the downloaded file and follow the installation prompts."
+  },
+  "onboarding": {
+    "welcomeTitle": "Welcome to KiraEvo!",
+    "welcomeDesc": "Let's get you set up in just a few steps. We'll guide you through adding a server, activating your license, and configuring your first module.",
+    "addServerTitle": "Add a Server",
+    "addServerDesc": "Head to 'Servers' to see your Discord servers. Click on any server to start managing it with KiraEvo.",
+    "activateLicenseTitle": "Activate a License",
+    "activateLicenseDesc": "Go to 'Activate License' to enter your license key. This unlocks Premium or VIP features for your server.",
+    "configureModulesTitle": "Configure Modules",
+    "configureModulesDesc": "Visit your server dashboard to enable and configure modules like AutoMod, Leveling, Tickets, and more.",
+    "skip": "Skip",
+    "next": "Next",
+    "goThere": "Go there",
+    "finish": "Get started!"
   }
 }

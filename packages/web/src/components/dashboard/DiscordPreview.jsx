@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaHashtag, FaExternalLinkAlt } from 'react-icons/fa';
+import botAvatar from '../../assets/img/avatar.png';
 
 const DiscordPreview = ({
   message,
@@ -269,9 +270,11 @@ const DiscordPreview = ({
       </div>
 
       <div className="flex items-start space-x-4 group hover:bg-[#2e3035] -mx-4 px-4 py-2 transition-colors">
-        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex-shrink-0 flex items-center justify-center text-lg">
-          🤖
-        </div>
+        <img
+          src={botAvatar}
+          alt="KiraEvo"
+          className="w-10 h-10 rounded-full flex-shrink-0 object-cover"
+        />
         <div className="flex-1 min-w-0">
           <div className="flex items-center space-x-2">
             <span className="font-medium text-white hover:underline cursor-pointer">「🟣」 𝓚𝓲𝓻𝓪  𝓔𝓿𝓸𝓵𝓿𝓮𝓭</span>

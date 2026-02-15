@@ -5,6 +5,8 @@ import { useTranslation } from '../contexts/LanguageContext';
 import { FaBell, FaSearch, FaSignOutAlt, FaUser, FaBars, FaCrown, FaKey, FaGift, FaServer, FaChevronRight, FaBox, FaChartLine, FaChartBar, FaUsers } from 'react-icons/fa';
 import ThemeToggle from './ThemeToggle';
 import LanguageSelector from './LanguageSelector';
+// --- ZMIANA 1: Import Capacitora ---
+import { Capacitor } from '@capacitor/core';
 
 export default function Navbar({ onMenuClick }) {
   const { user, logout } = useAuth();
@@ -233,12 +235,13 @@ export default function Navbar({ onMenuClick }) {
             )}
           </div>
         ) : (
-          <a
-            href="/login"
+          /* --- ZMIANA 2: Warunkowy Link zamiast <a> --- */
+          <Link
+            to={Capacitor.isNativePlatform() ? "/login?source=app" : "/login"}
             className="btn-primary text-sm"
           >
             {t('nav.login')}
-          </a>
+          </Link>
         )}
       </div>
     </nav>

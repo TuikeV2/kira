@@ -4,11 +4,13 @@ import {
   FaTerminal, FaShieldAlt, FaGavel, FaCheckCircle, FaTimesCircle,
   FaChartLine, FaChartPie
 } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 import { adminService } from '../../services/api.service';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTranslation } from '../../contexts/LanguageContext';
 import StatCard from '../../components/StatCard';
-import { AnimatedCard } from '../../components/animated';
+import { GlassCard } from '../../components/ui/GlassCard';
+import { cn } from '../../lib/utils';
 import { SkeletonStats, SkeletonTable } from '../../components/ui';
 import { useToast } from '../../contexts/ToastContext';
 import {
@@ -17,13 +19,25 @@ import {
 } from 'recharts';
 
 const tooltipStyle = {
-  backgroundColor: 'var(--tooltip-bg, #1f2937)',
-  border: 'none',
-  borderRadius: '8px',
-  color: 'var(--tooltip-text, #fff)'
+  backgroundColor: 'rgba(15, 23, 42, 0.95)',
+  border: '1px solid rgba(255,255,255,0.1)',
+  borderRadius: '12px',
+  color: '#fff',
+  backdropFilter: 'blur(12px)',
+  boxShadow: '0 8px 32px rgba(0,0,0,0.3)'
 };
 
 const PIE_COLORS = ['#3b82f6', '#ef4444', '#f59e0b', '#10b981', '#8b5cf6', '#ec4899', '#06b6d4', '#84cc16'];
+
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.06 } }
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.35 } }
+};
 
 export default function AdminStats() {
   const { user } = useAuth();
@@ -74,25 +88,31 @@ export default function AdminStats() {
   ];
 
   return (
-    <div className="space-y-6">
+    <motion.div
+      className="space-y-6"
+      variants={stagger}
+      initial="hidden"
+      animate="show"
+    >
       {/* Header */}
-      <div>
-        <h1 className="page-title">{t('adminStats.title') || 'Statystyki bota'}</h1>
-        <p className="page-subtitle">{t('adminStats.subtitle') || 'Analityka komend, automod i moderacji'}</p>
-      </div>
+      <motion.div variants={fadeUp}>
+        <h1 className="text-2xl font-bold text-white">{t('adminStats.title') || 'Statystyki bota'}</h1>
+        <p className="text-gray-400 mt-1">{t('adminStats.subtitle') || 'Analityka komend, automod i moderacji'}</p>
+      </motion.div>
 
       {/* Tabs + Period selector */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex gap-1 bg-gray-100 dark:bg-dark-800 rounded-lg p-1">
+      <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="flex gap-1 bg-white/5 border border-white/10 rounded-lg p-1">
           {tabs.map((t) => (
             <button
               key={t.id}
               onClick={() => { setTab(t.id); setData(null); }}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              className={cn(
+                'flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors',
                 tab === t.id
-                  ? 'bg-white dark:bg-dark-700 text-primary-600 dark:text-primary-400 shadow-sm'
-                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
-              }`}
+                  ? 'bg-white/10 text-primary-400'
+                  : 'text-gray-400 hover:text-gray-200'
+              )}
             >
               <t.icon className="w-4 h-4" />
               {t.label}
@@ -100,39 +120,40 @@ export default function AdminStats() {
           ))}
         </div>
 
-        <div className="flex gap-1 bg-gray-100 dark:bg-dark-800 rounded-lg p-1">
+        <div className="flex gap-1 bg-white/5 border border-white/10 rounded-lg p-1">
           {periods.map((p) => (
             <button
               key={p.value}
               onClick={() => setPeriod(p.value)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+              className={cn(
+                'px-3 py-1.5 rounded-lg text-xs font-medium transition-colors',
                 period === p.value
-                  ? 'bg-white dark:bg-dark-700 text-primary-600 dark:text-primary-400 shadow-sm'
-                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'
-              }`}
+                  ? 'bg-white/10 text-primary-400'
+                  : 'text-gray-400 hover:text-gray-200'
+              )}
             >
               {p.label}
             </button>
           ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* Loading */}
       {loading ? (
-        <div className="space-y-6">
+        <motion.div variants={fadeUp} className="space-y-6">
           <SkeletonStats />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="card p-6"><SkeletonTable rows={5} /></div>
-            <div className="card p-6"><SkeletonTable rows={5} /></div>
+            <GlassCard className="p-6"><SkeletonTable rows={5} /></GlassCard>
+            <GlassCard className="p-6"><SkeletonTable rows={5} /></GlassCard>
           </div>
-        </div>
+        </motion.div>
       ) : (
         <>
           {/* Commands Tab */}
           {tab === 'commands' && data && (
             <div className="space-y-6">
               {/* Stats */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <motion.div variants={fadeUp} className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <StatCard
                   title={t('adminStats.totalCommands') || 'Razem komend'}
                   value={data.totalCommands || 0}
@@ -151,17 +172,17 @@ export default function AdminStats() {
                   icon={FaChartLine}
                   color="purple"
                 />
-              </div>
+              </motion.div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <motion.div variants={fadeUp} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Commands per day chart */}
-                <AnimatedCard className="card p-6">
+                <GlassCard className="p-6">
                   <h2 className="section-title mb-4">{t('adminStats.commandsPerDay') || 'Komendy / dzien'}</h2>
                   <div className="h-64">
                     {data.commandsPerDay?.length > 0 ? (
                       <ResponsiveContainer width="100%" height="100%">
                         <LineChart data={data.commandsPerDay}>
-                          <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.3} />
+                          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" opacity={0.3} />
                           <XAxis dataKey="date" stroke="#9ca3af" tick={{ fontSize: 11 }} />
                           <YAxis stroke="#9ca3af" />
                           <Tooltip contentStyle={tooltipStyle} />
@@ -172,14 +193,14 @@ export default function AdminStats() {
                       <div className="h-full flex items-center justify-center text-gray-400">Brak danych</div>
                     )}
                   </div>
-                </AnimatedCard>
+                </GlassCard>
 
                 {/* Top Commands table */}
-                <AnimatedCard className="card p-6">
+                <GlassCard className="p-6">
                   <h2 className="section-title mb-4">{t('adminStats.topCommands') || 'Top komendy'}</h2>
                   <div className="space-y-2 max-h-64 overflow-y-auto">
                     {data.topCommands?.length > 0 ? data.topCommands.map((cmd, i) => (
-                      <div key={cmd.name} className="flex items-center justify-between p-2 bg-gray-50 dark:bg-dark-700/50 rounded-lg">
+                      <div key={cmd.name} className="flex items-center justify-between p-2 bg-white/5 rounded-xl">
                         <div className="flex items-center gap-3">
                           <span className="w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 text-xs font-bold flex items-center justify-center">
                             {i + 1}
@@ -192,16 +213,16 @@ export default function AdminStats() {
                       <div className="text-center py-8 text-gray-400">Brak danych</div>
                     )}
                   </div>
-                </AnimatedCard>
-              </div>
+                </GlassCard>
+              </motion.div>
 
               {/* Active Servers + Users */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <AnimatedCard className="card p-6">
+              <motion.div variants={fadeUp} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <GlassCard className="p-6">
                   <h2 className="section-title mb-4">{t('adminStats.activeServers') || 'Aktywne serwery'}</h2>
                   <div className="space-y-2 max-h-48 overflow-y-auto">
                     {data.activeServers?.length > 0 ? data.activeServers.map((s, i) => (
-                      <div key={s.guildId} className="flex items-center justify-between p-2 bg-gray-50 dark:bg-dark-700/50 rounded-lg">
+                      <div key={s.guildId} className="flex items-center justify-between p-2 bg-white/5 rounded-xl">
                         <span className="text-sm font-mono text-gray-600 dark:text-gray-300">{s.guildId}</span>
                         <span className="text-sm font-semibold text-gray-600 dark:text-gray-300">{s.count}</span>
                       </div>
@@ -209,13 +230,13 @@ export default function AdminStats() {
                       <div className="text-center py-4 text-gray-400">Brak danych</div>
                     )}
                   </div>
-                </AnimatedCard>
+                </GlassCard>
 
-                <AnimatedCard className="card p-6">
+                <GlassCard className="p-6">
                   <h2 className="section-title mb-4">{t('adminStats.activeUsers') || 'Aktywni uzytkownicy'}</h2>
                   <div className="space-y-2 max-h-48 overflow-y-auto">
                     {data.activeUsers?.length > 0 ? data.activeUsers.map((u) => (
-                      <div key={u.userId} className="flex items-center justify-between p-2 bg-gray-50 dark:bg-dark-700/50 rounded-lg">
+                      <div key={u.userId} className="flex items-center justify-between p-2 bg-white/5 rounded-xl">
                         <span className="text-sm font-mono text-gray-600 dark:text-gray-300">{u.userId}</span>
                         <span className="text-sm font-semibold text-gray-600 dark:text-gray-300">{u.count}</span>
                       </div>
@@ -223,17 +244,17 @@ export default function AdminStats() {
                       <div className="text-center py-4 text-gray-400">Brak danych</div>
                     )}
                   </div>
-                </AnimatedCard>
-              </div>
+                </GlassCard>
+              </motion.div>
             </div>
           )}
 
           {/* AutoMod Tab */}
           {tab === 'automod' && data && (
             <div className="space-y-6">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <motion.div variants={fadeUp} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Violations PieChart */}
-                <AnimatedCard className="card p-6">
+                <GlassCard className="p-6">
                   <h2 className="section-title mb-4">{t('adminStats.violationsByType') || 'Naruszenia wg typu'}</h2>
                   <div className="h-72">
                     {data.violationsByType?.length > 0 ? (
@@ -261,16 +282,16 @@ export default function AdminStats() {
                       <div className="h-full flex items-center justify-center text-gray-400">Brak naruszen</div>
                     )}
                   </div>
-                </AnimatedCard>
+                </GlassCard>
 
                 {/* Recent Violations table */}
-                <AnimatedCard className="card p-6">
+                <GlassCard className="p-6">
                   <h2 className="section-title mb-4">{t('adminStats.recentViolations') || 'Ostatnie naruszenia'}</h2>
                   <div className="overflow-x-auto max-h-72 overflow-y-auto">
                     {data.recentViolations?.length > 0 ? (
                       <table className="w-full text-sm">
                         <thead>
-                          <tr className="border-b border-gray-200 dark:border-dark-700">
+                          <tr className="border-b border-white/5">
                             <th className="text-left py-2 text-xs text-gray-500 dark:text-gray-400">{t('adminStats.type') || 'Typ'}</th>
                             <th className="text-left py-2 text-xs text-gray-500 dark:text-gray-400">{t('adminStats.action') || 'Akcja'}</th>
                             <th className="text-left py-2 text-xs text-gray-500 dark:text-gray-400">{t('adminStats.guild') || 'Serwer'}</th>
@@ -279,7 +300,7 @@ export default function AdminStats() {
                         </thead>
                         <tbody>
                           {data.recentViolations.slice(0, 15).map((v) => (
-                            <tr key={v.id} className="border-b border-gray-100 dark:border-dark-700/50">
+                            <tr key={v.id} className="border-b border-white/5">
                               <td className="py-2">
                                 <span className="text-xs font-medium text-red-600 dark:text-red-400">{v.violationType}</span>
                               </td>
@@ -300,8 +321,8 @@ export default function AdminStats() {
                       <div className="flex items-center justify-center py-8 text-gray-400">Brak naruszen</div>
                     )}
                   </div>
-                </AnimatedCard>
-              </div>
+                </GlassCard>
+              </motion.div>
             </div>
           )}
 
@@ -309,7 +330,7 @@ export default function AdminStats() {
           {tab === 'moderation' && data && (
             <div className="space-y-6">
               {/* Stats cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <motion.div variants={fadeUp} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <StatCard
                   title={t('adminStats.warningsIssued') || 'Ostrzezenia'}
                   value={data.warningsCount || 0}
@@ -336,17 +357,17 @@ export default function AdminStats() {
                   icon={FaChartPie}
                   color="purple"
                 />
-              </div>
+              </motion.div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <motion.div variants={fadeUp} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Actions by type BarChart */}
-                <AnimatedCard className="card p-6">
+                <GlassCard className="p-6">
                   <h2 className="section-title mb-4">{t('adminStats.actionsByType') || 'Akcje wg typu'}</h2>
                   <div className="h-64">
                     {data.actionsByType?.length > 0 ? (
                       <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={data.actionsByType}>
-                          <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.3} />
+                          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" opacity={0.3} />
                           <XAxis dataKey="type" stroke="#9ca3af" tick={{ fontSize: 10 }} angle={-20} textAnchor="end" height={60} />
                           <YAxis stroke="#9ca3af" />
                           <Tooltip contentStyle={tooltipStyle} />
@@ -357,14 +378,14 @@ export default function AdminStats() {
                       <div className="h-full flex items-center justify-center text-gray-400">Brak danych</div>
                     )}
                   </div>
-                </AnimatedCard>
+                </GlassCard>
 
                 {/* Top Moderators table */}
-                <AnimatedCard className="card p-6">
+                <GlassCard className="p-6">
                   <h2 className="section-title mb-4">{t('adminStats.topModerators') || 'Top moderatorzy'}</h2>
                   <div className="space-y-2 max-h-64 overflow-y-auto">
                     {data.topModerators?.length > 0 ? data.topModerators.map((m, i) => (
-                      <div key={m.moderatorId} className="flex items-center justify-between p-2 bg-gray-50 dark:bg-dark-700/50 rounded-lg">
+                      <div key={m.moderatorId} className="flex items-center justify-between p-2 bg-white/5 rounded-xl">
                         <div className="flex items-center gap-3">
                           <span className="w-6 h-6 rounded-full bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 text-xs font-bold flex items-center justify-center">
                             {i + 1}
@@ -377,27 +398,29 @@ export default function AdminStats() {
                       <div className="text-center py-8 text-gray-400">Brak danych</div>
                     )}
                   </div>
-                </AnimatedCard>
-              </div>
+                </GlassCard>
+              </motion.div>
 
               {/* Per-server moderation */}
-              <AnimatedCard className="card p-6">
-                <h2 className="section-title mb-4">{t('adminStats.perServer') || 'Moderacja na serwer'}</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                  {data.perServer?.length > 0 ? data.perServer.map((s) => (
-                    <div key={s.guildId} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-dark-700/50 rounded-lg">
-                      <span className="text-sm font-mono text-gray-600 dark:text-gray-300 truncate">{s.guildId}</span>
-                      <span className="text-sm font-bold text-gray-700 dark:text-gray-200 ml-2">{s.count}</span>
-                    </div>
-                  )) : (
-                    <div className="col-span-full text-center py-4 text-gray-400">Brak danych</div>
-                  )}
-                </div>
-              </AnimatedCard>
+              <motion.div variants={fadeUp}>
+                <GlassCard className="p-6">
+                  <h2 className="section-title mb-4">{t('adminStats.perServer') || 'Moderacja na serwer'}</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    {data.perServer?.length > 0 ? data.perServer.map((s) => (
+                      <div key={s.guildId} className="flex items-center justify-between p-3 bg-white/5 rounded-xl">
+                        <span className="text-sm font-mono text-gray-600 dark:text-gray-300 truncate">{s.guildId}</span>
+                        <span className="text-sm font-bold text-gray-700 dark:text-gray-200 ml-2">{s.count}</span>
+                      </div>
+                    )) : (
+                      <div className="col-span-full text-center py-4 text-gray-400">Brak danych</div>
+                    )}
+                  </div>
+                </GlassCard>
+              </motion.div>
             </div>
           )}
         </>
       )}
-    </div>
+    </motion.div>
   );
 }

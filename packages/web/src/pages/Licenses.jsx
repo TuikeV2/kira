@@ -4,19 +4,20 @@ import { FaPlus, FaTrash, FaCheck, FaTimes, FaCopy, FaKey } from 'react-icons/fa
 import { PageHeader } from '../components/ui';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from '../contexts/LanguageContext';
+import { useToast } from '../contexts/ToastContext';
 
 export default function Licenses() {
   const { user } = useAuth();
   const { t } = useTranslation();
+  const toast = useToast();
   const [licenses, setLicenses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
-  // Dodano pole maxServers do stanu formularza
-  const [formData, setFormData] = useState({ 
-      tier: 'FREE', 
-      duration: '30days', 
-      customDate: '', 
-      maxServers: 1 
+  const [formData, setFormData] = useState({
+      tier: 'FREE',
+      duration: '30days',
+      customDate: '',
+      maxServers: 1
   });
 
   useEffect(() => {
@@ -63,9 +64,8 @@ export default function Licenses() {
     e.preventDefault();
     try {
       const expiresAt = calculateExpiresAt();
-      // Przekazujemy maxServers do API
-      await licenseService.create({ 
-          tier: formData.tier, 
+      await licenseService.create({
+          tier: formData.tier,
           expiresAt,
           maxServers: parseInt(formData.maxServers)
       });
@@ -73,7 +73,7 @@ export default function Licenses() {
       setFormData({ tier: 'FREE', duration: '30days', customDate: '', maxServers: 1 });
       fetchLicenses();
     } catch (error) {
-      alert('Failed to create license');
+      toast.error(t('pages.adminLicenses.createError') || 'Failed to create license');
     }
   };
 
@@ -84,13 +84,13 @@ export default function Licenses() {
       await licenseService.delete(id);
       fetchLicenses();
     } catch (error) {
-      alert('Failed to delete license');
+      toast.error(t('pages.adminLicenses.deleteError') || 'Failed to delete license');
     }
   };
 
   const copyToClipboard = (text) => {
       navigator.clipboard.writeText(text);
-      alert(t('pages.adminLicenses.keyCopied'));
+      toast.success(t('pages.adminLicenses.keyCopied'));
   };
 
   if (loading) {
@@ -117,11 +117,15 @@ export default function Licenses() {
 
       {showCreate && (
         <div className="card p-6 mb-6">
-          <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Create New License</h2>
+          <h2 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
+            {t('pages.adminLicenses.createLicense') || 'Create New License'}
+          </h2>
           <form onSubmit={handleCreate} className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label className="block text-gray-700 dark:text-gray-300 mb-2">Tier</label>
+                    <label className="block text-gray-700 dark:text-gray-300 mb-2">
+                      {t('pages.adminLicenses.tier') || 'Tier'}
+                    </label>
                     <select
                         value={formData.tier}
                         onChange={(e) => setFormData({ ...formData, tier: e.target.value })}
@@ -133,7 +137,9 @@ export default function Licenses() {
                     </select>
                 </div>
                 <div>
-                     <label className="block text-gray-700 dark:text-gray-300 mb-2">Max Uses (Servers)</label>
+                     <label className="block text-gray-700 dark:text-gray-300 mb-2">
+                       {t('pages.adminLicenses.maxServers') || 'Max Uses (Servers)'}
+                     </label>
                      <input
                         type="number"
                         min="1"
@@ -143,9 +149,11 @@ export default function Licenses() {
                      />
                 </div>
             </div>
-            
+
             <div>
-              <label className="block text-gray-700 dark:text-gray-300 mb-2">Duration</label>
+              <label className="block text-gray-700 dark:text-gray-300 mb-2">
+                {t('pages.adminLicenses.duration') || 'Duration'}
+              </label>
               <select
                 value={formData.duration}
                 onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
@@ -172,21 +180,22 @@ export default function Licenses() {
             )}
             <div className="flex space-x-2">
               <button type="submit" className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">
-                Create
+                {t('pages.adminLicenses.create') || 'Create'}
               </button>
               <button
                 type="button"
                 onClick={() => setShowCreate(false)}
                 className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg"
               >
-                Cancel
+                {t('pages.adminLicenses.cancel') || 'Cancel'}
               </button>
             </div>
           </form>
         </div>
       )}
 
-      <div className="card overflow-hidden">
+      {/* Desktop table */}
+      <div className="card overflow-hidden hidden md:block">
         <table className="min-w-full divide-y divide-gray-200 dark:divide-dark-700">
           <thead className="bg-gray-50 dark:bg-dark-700">
             <tr>
@@ -240,6 +249,59 @@ export default function Licenses() {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Mobile cards */}
+      <div className="md:hidden space-y-3">
+        {licenses.length === 0 ? (
+          <div className="card p-6 text-center text-gray-500 dark:text-gray-400">
+            {t('pages.adminLicenses.noLicenses') || 'No licenses found'}
+          </div>
+        ) : (
+          licenses.map((license) => (
+            <div key={license.id} className="card p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className={`px-2 py-1 rounded text-xs font-semibold ${
+                  license.tier === 'VIP' ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300' :
+                  license.tier === 'PREMIUM' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300' :
+                  'bg-gray-100 dark:bg-dark-600 text-gray-800 dark:text-gray-300'
+                }`}>
+                  {license.tier}
+                </span>
+                <div className="flex items-center gap-2">
+                  {license.isActive ? (
+                    <span className="flex items-center gap-1 text-xs text-green-500"><FaCheck className="w-3 h-3" /> Active</span>
+                  ) : (
+                    <span className="flex items-center gap-1 text-xs text-red-500"><FaTimes className="w-3 h-3" /> Inactive</span>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <code className="text-xs font-mono text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-dark-700 px-2 py-1 rounded break-all flex-1">
+                  {license.licenseKey}
+                </code>
+                <button onClick={() => copyToClipboard(license.licenseKey)} className="text-gray-400 hover:text-blue-500 p-1 flex-shrink-0">
+                  <FaCopy className="w-3.5 h-3.5" />
+                </button>
+              </div>
+
+              <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                <span>Max: {license.maxServers === -1 ? 'Unlimited' : license.maxServers}</span>
+                <span>{license.expiresAt ? new Date(license.expiresAt).toLocaleDateString() : 'Never'}</span>
+              </div>
+
+              <div className="flex justify-end border-t border-gray-200 dark:border-dark-700 pt-2">
+                <button
+                  onClick={() => handleDelete(license.id)}
+                  className="text-red-600 hover:text-red-800 p-2 text-sm flex items-center gap-1"
+                >
+                  <FaTrash className="w-3 h-3" /> Delete
+                </button>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

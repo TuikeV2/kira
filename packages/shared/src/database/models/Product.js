@@ -40,6 +40,10 @@ module.exports = (sequelize) => {
       type: DataTypes.JSON,
       defaultValue: []
     },
+    featureLimits: {
+      type: DataTypes.JSON,
+      defaultValue: []
+    },
     isPopular: {
       type: DataTypes.BOOLEAN,
       defaultValue: false

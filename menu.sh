@@ -1,32 +1,25 @@
 #!/bin/bash
 
-# Kolory dla lepszej czytelności
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 CYAN='\033[0;36m'
 YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
-# Ścieżka główna projektu
 ROOT_DIR="/home/debian/kira"
 
-# Sprawdzenie czy PM2 jest zainstalowane
 if ! command -v pm2 &> /dev/null; then
     echo -e "${RED}PM2 nie jest zainstalowane!${NC}"
-    echo -e "Instaluję PM2 globalnie..."
     npm install -g pm2
-    echo -e "${GREEN}PM2 zainstalowane.${NC}"
     sleep 2
 fi
 
-# Funkcja pauzy
 pause() {
     echo ""
     read -n 1 -s -r -p "Naciśnij dowolny klawisz, aby wrócić do menu..."
 }
 
-# Funkcja pełnego backupu
 backup_full() {
     BACKUP_DIR="$ROOT_DIR/backups"
     TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
@@ -38,12 +31,11 @@ backup_full() {
 
     if [ ! -d "$BACKUP_DIR" ]; then
         mkdir -p "$BACKUP_DIR"
-        echo -e "${GREEN}✓ Utworzono katalog backupów${NC}"
     fi
 
     mkdir -p "$BACKUP_PATH"
 
-    echo -e "${YELLOW}[1/3] Tworzenie archiwum plików projektu...${NC}"
+    echo -e "${YELLOW}[1/3] Tworzenie archiwum plików...${NC}"
     cd "$ROOT_DIR"
 
     tar --exclude='node_modules' \
@@ -52,6 +44,7 @@ backup_full() {
         --exclude='dist' \
         --exclude='*.log' \
         --exclude='.env' \
+        --exclude='packages/web/android' \
         -cvzf "${BACKUP_PATH}/files.tar.gz" \
         packages/ \
         docker-compose.yml \
@@ -85,10 +78,10 @@ backup_full() {
         if [ $? -eq 0 ]; then
             echo -e "${GREEN}✓ Zrzut bazy danych utworzony${NC}"
         else
-            echo -e "${YELLOW}⚠ Nie udało się utworzyć zrzutu bazy (sprawdź dane dostępowe)${NC}"
+            echo -e "${YELLOW}⚠ Nie udało się utworzyć zrzutu bazy${NC}"
         fi
     else
-        echo -e "${YELLOW}⚠ mysqldump nie jest zainstalowany - pomijam zrzut bazy${NC}"
+        echo -e "${YELLOW}⚠ mysqldump nie jest zainstalowany${NC}"
     fi
 
     echo -e "${YELLOW}[3/3] Kompresja finalnego archiwum...${NC}"
@@ -116,7 +109,6 @@ backup_full() {
     cd "$ROOT_DIR"
 }
 
-# Funkcja budowania strony
 build_web() {
     echo -e "${CYAN}🔨 Kompilowanie Panelu Web...${NC}"
     cd "$ROOT_DIR/packages/web" || return
@@ -126,40 +118,241 @@ build_web() {
     else
         echo -e "${RED}❌ Błąd kompilacji!${NC}"
     fi
-    # Powrót do głównego katalogu nie jest konieczny w skrypcie, ale dobra praktyka
     cd "$ROOT_DIR"
 }
 
-# Funkcja startu API
 start_api() {
     echo -e "${CYAN}🚀 Uruchamianie API...${NC}"
-    # --cwd ustawia katalog roboczy na folder API, dzięki temu widzi .env
     pm2 start src/index.js --name "kira-api" --cwd "$ROOT_DIR/packages/api"
 }
 
-# Funkcja startu Bota
 start_bot() {
     echo -e "${CYAN}🤖 Uruchamianie Bota...${NC}"
-    # --cwd ustawia katalog roboczy na folder Bota, dzięki temu widzi .env i token
     pm2 start src/index.js --name "kira-bot" --cwd "$ROOT_DIR/packages/bot"
 }
 
-# Funkcja startu Web
 start_web() {
     echo -e "${CYAN}🌐 Uruchamianie Panelu Web...${NC}"
-    # --cwd ustawia katalog roboczy na folder Web
     pm2 start npm --name "kira-web" --cwd "$ROOT_DIR/packages/web" -- run preview
 }
 
-# Główne Menu
+build_apk() {
+    echo -e "${CYAN}📱 Budowanie Android APK...${NC}"
+    echo ""
+
+    export JAVA_HOME="/opt/java/jdk17"
+    export ANDROID_HOME="/opt/android-sdk"
+    export PATH="$JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
+
+    cd "$ROOT_DIR/packages/web" || return
+
+    # Synchronizacja wersji z package.json do build.gradle
+    PKG_VERSION=$(node -p "require('./package.json').version")
+    if [ -n "$PKG_VERSION" ]; then
+        sed -i "s/versionName \"[^\"]*\"/versionName \"$PKG_VERSION\"/" android/app/build.gradle
+        echo -e "${GREEN}✓ Wersja APK ustawiona na: $PKG_VERSION${NC}"
+    fi
+
+    echo -e "${YELLOW}[1/5] Budowanie panelu web (Vite)...${NC}"
+    npm run build
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}❌ Błąd budowania strony!${NC}"
+        cd "$ROOT_DIR"
+        return 1
+    fi
+    echo -e "${GREEN}✓ Panel web zbudowany${NC}"
+
+    if [ ! -d "android" ]; then
+        echo -e "${YELLOW}[2/5] Dodawanie platformy Android...${NC}"
+        npx cap add android
+        if [ $? -ne 0 ]; then
+            echo -e "${RED}❌ Błąd dodawania platformy Android!${NC}"
+            cd "$ROOT_DIR"
+            return 1
+        fi
+        echo -e "${GREEN}✓ Platforma Android dodana${NC}"
+    else
+        echo -e "${GREEN}[2/5] ✓ Platforma Android już istnieje${NC}"
+    fi
+
+    echo -e "${YELLOW}[3/5] Synchronizacja z Capacitor...${NC}"
+    npx cap sync android
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}❌ Błąd synchronizacji Capacitor!${NC}"
+        cd "$ROOT_DIR"
+        return 1
+    fi
+    echo -e "${GREEN}✓ Synchronizacja zakończona${NC}"
+
+    echo -e "${YELLOW}[4/5] Kompilowanie APK (Gradle)...${NC}"
+    cd android 
+    chmod +x gradlew
+    ./gradlew clean
+    ./gradlew assembleDebug
+    
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}❌ Błąd kompilacji APK!${NC}"
+        cd "$ROOT_DIR"
+        return 1
+    fi
+    echo -e "${GREEN}✓ APK skompilowany${NC}"
+
+    echo -e "${YELLOW}[5/5] Kopiowanie APK...${NC}"
+    cd "$ROOT_DIR/packages/web"
+    mkdir -p public/downloads
+    cp android/app/build/outputs/apk/debug/app-debug.apk public/downloads/kiraevo.apk
+    if [ $? -eq 0 ]; then
+        echo -e "${GREEN}✓ APK skopiowany do public/downloads/kiraevo.apk${NC}"
+    else
+        echo -e "${RED}❌ Nie znaleziono pliku APK!${NC}"
+        cd "$ROOT_DIR"
+        return 1
+    fi
+
+    echo -e "${YELLOW}Ponowne budowanie web z plikiem APK...${NC}"
+    npm run build
+    if [ $? -eq 0 ]; then
+        APK_SIZE=$(du -h public/downloads/kiraevo.apk | cut -f1)
+        echo ""
+        echo -e "${GREEN}✅ Android APK zbudowany pomyślnie!${NC}"
+        echo -e "${CYAN}📱 Plik: packages/web/public/downloads/kiraevo.apk${NC}"
+        echo -e "${CYAN}📊 Rozmiar: ${APK_SIZE}${NC}"
+        echo -e "${CYAN}🌐 Dostępny pod: /downloads/kiraevo.apk${NC}"
+        echo -e "${CYAN}📌 Wersja w APK: ${PKG_VERSION}${NC}"
+    else
+        echo -e "${RED}❌ Błąd ponownego budowania web!${NC}"
+    fi
+
+    # Auto-inkrementacja wersji patch w package.json (np. 1.0.0 → 1.0.1)
+    # Dzięki temu API zwraca nową wersję, a stare APK wykryją aktualizację
+    echo ""
+    echo -e "${YELLOW}Podbijanie wersji w package.json...${NC}"
+    NEW_VERSION=$(node -e "
+      const fs = require('fs');
+      const pkg = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
+      const parts = pkg.version.split('.').map(Number);
+      parts[2]++;
+      pkg.version = parts.join('.');
+      fs.writeFileSync('./package.json', JSON.stringify(pkg, null, 2) + '\n');
+      console.log(pkg.version);
+    ")
+    echo -e "${GREEN}✓ Nowa wersja w API: ${NEW_VERSION} (stare APK ${PKG_VERSION} wykryją aktualizację)${NC}"
+
+    # Restart API żeby serwowało nową wersję
+    pm2 restart kira-api 2>/dev/null
+    echo -e "${GREEN}✓ API zrestartowane — wersja ${NEW_VERSION} aktywna${NC}"
+
+    cd "$ROOT_DIR"
+}
+
+manage_git() {
+    cd "$ROOT_DIR" || return
+    
+    if [ ! -d ".git" ]; then
+        echo -e "${RED}Katalog $ROOT_DIR nie jest repozytorium Git!${NC}"
+        pause
+        return
+    fi
+
+    while true; do
+        CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+        
+        clear
+        echo -e "${BLUE}=========================================${NC}"
+        echo -e "${YELLOW}         🐙 ZARZĄDZANIE GIT (GitHub)     ${NC}"
+        echo -e "${BLUE}=========================================${NC}"
+        echo -e "Obecna gałąź: ${GREEN}$CURRENT_BRANCH${NC}"
+        echo ""
+        echo "1. 📊 Sprawdź status (git status)"
+        echo "2. ⬇️ Pobierz aktualizacje (git pull)"
+        echo "3. ⚠️ Wymuś aktualizację (Reset HARD)"
+        echo "4. 📜 Historia zmian (git log)"
+        echo "5. 🆙 Wyślij zmiany (Commit & Push)"
+        echo "0. 🔙 Powrót do głównego menu"
+        echo ""
+        read -p "Wybierz opcję Git: " git_choice
+
+        case $git_choice in
+            1)
+                echo ""
+                git status
+                pause
+                ;;
+            2)
+                echo ""
+                echo -e "${CYAN}Pobieranie zmian z repozytorium...${NC}"
+                git pull
+                if [ $? -eq 0 ]; then
+                    echo -e "${GREEN}✓ Pomyślnie pobrano zmiany.${NC}"
+                else
+                    echo -e "${RED}❌ Błąd pobierania.${NC}"
+                fi
+                pause
+                ;;
+            3)
+                echo ""
+                echo -e "${RED}UWAGA! To usunie WSZYSTKIE twoje lokalne zmiany!${NC}"
+                read -p "Kontynuować? (t/n): " confirm
+                if [[ "$confirm" == "t" || "$confirm" == "T" ]]; then
+                    echo -e "${CYAN}Resetowanie repozytorium...${NC}"
+                    git fetch --all
+                    git reset --hard "origin/$CURRENT_BRANCH"
+                    echo -e "${GREEN}✓ Przywrócono stan z GitHub.${NC}"
+                fi
+                pause
+                ;;
+            4)
+                echo ""
+                git log -n 5 --graph --decorate --oneline
+                pause
+                ;;
+            5)
+                echo ""
+                echo -e "${YELLOW}--- Pliki zmienione ---${NC}"
+                git status -s
+                echo ""
+                echo -e "${CYAN}Wpisz treść commita (ENTER aby anulować):${NC}"
+                read commit_msg
+                
+                if [ -z "$commit_msg" ]; then
+                    echo -e "${RED}Anulowano.${NC}"
+                else
+                    echo -e "${CYAN}1. Dodawanie plików (git add .)...${NC}"
+                    git add .
+                    
+                    echo -e "${CYAN}2. Tworzenie commita...${NC}"
+                    git commit -m "$commit_msg"
+                    
+                    echo -e "${CYAN}3. Wysyłanie na serwer (git push)...${NC}"
+                    git push
+                    
+                    if [ $? -eq 0 ]; then
+                        echo -e "${GREEN}✅ Sukces! Zmiany wysłane na GitHub.${NC}"
+                    else
+                        echo -e "${RED}❌ Błąd wysyłania! (Sprawdź token/hasło lub czy repo nie ma konfliktów).${NC}"
+                    fi
+                fi
+                pause
+                ;;
+            0)
+                break
+                ;;
+            *)
+                echo -e "${RED}Nieprawidłowa opcja!${NC}"
+                sleep 1
+                ;;
+        esac
+    done
+    cd "$ROOT_DIR"
+}
+
 while true; do
     clear
     echo -e "${BLUE}=========================================${NC}"
-    echo -e "${YELLOW}       KIRA PROJECT MANAGER (PM2)        ${NC}"
+    echo -e "${YELLOW}       KIRA PROJECT MANAGER (PM2)        ${NC}"
     echo -e "${BLUE}=========================================${NC}"
     echo ""
     echo -e "STATUS PROCESÓW:"
-    # Wyświetla status procesów Kira
     pm2 status | grep -E "kira-|App name" --color=never
     echo ""
     echo -e "${BLUE}--- URUCHAMIANIE (START) ---${NC}"
@@ -180,15 +373,16 @@ while true; do
     echo "11. 📊 Podgląd logów (PM2 Monit)"
     echo "12. 🗑️ Usuń procesy z PM2"
     echo ""
-    echo -e "${BLUE}--- BACKUP ---${NC}"
+    echo -e "${BLUE}--- ROZSZERZONE ---${NC}"
     echo "13. 📦 Pełny Backup (pliki + baza danych)"
-    echo "0.  ❌ Wyjście"
+    echo "14. 📱 Zbuduj Android APK"
+    echo "15. 🐙 Zarządzanie GitHub (Push/Pull)"
+    echo "0.  ❌ Wyjście"
     echo ""
     read -p "Wybierz opcję: " choice
 
     case $choice in
         1)
-            # Najpierw usuwamy stare procesy, aby upewnić się, że wstaną z nowym configiem (--cwd)
             pm2 delete kira-api kira-bot kira-web 2>/dev/null
             start_api
             start_bot
@@ -248,6 +442,13 @@ while true; do
         13)
             backup_full
             pause
+            ;;
+        14)
+            build_apk
+            pause
+            ;;
+        15)
+            manage_git
             ;;
         0)
             echo "Do widzenia!"

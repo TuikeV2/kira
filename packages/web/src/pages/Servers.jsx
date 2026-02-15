@@ -1,16 +1,27 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { dashboardService } from '../services/api.service';
 import {
   FaServer, FaCheckCircle, FaExclamationTriangle, FaTimesCircle, FaCrown, FaGem,
-  FaChevronRight, FaPlus, FaSearch, FaSortAmountDown, FaSortAmountUp, FaTh, FaList
+  FaChevronRight, FaPlus, FaSearch, FaSortAmountDown, FaSortAmountUp, FaTh, FaList, FaUsers
 } from 'react-icons/fa';
-import { AnimatedList, AnimatedListItem } from '../components/animated';
-import { EmptyState, PageHeader, SkeletonCard } from '../components/ui';
+import { EmptyState, SkeletonCard } from '../components/ui';
+import { GlassCard } from '../components/ui/GlassCard';
 import { useTranslation } from '../contexts/LanguageContext';
 import { useToast } from '../contexts/ToastContext';
+import { cn } from '../lib/utils';
 
 const FILTERS = ['all', 'active', 'botOnly', 'noBot'];
+
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.06 } },
+};
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.35 } },
+};
 
 export default function Servers() {
   const [guilds, setGuilds] = useState([]);
@@ -32,7 +43,7 @@ export default function Servers() {
     try {
       const response = await dashboardService.getUserGuilds();
       setGuilds(response.data.data);
-    } catch (error) {
+    } catch {
       toast.error(t('common.fetchError') || 'Failed to load servers');
     } finally {
       setLoading(false);
@@ -65,29 +76,21 @@ export default function Servers() {
 
   const filteredGuilds = useMemo(() => {
     let result = guilds;
-
-    // Filter by tab
     if (filter === 'active') result = activeGuilds;
     else if (filter === 'botOnly') result = botOnlyGuilds;
     else if (filter === 'noBot') result = noBotGuilds;
 
-    // Search
     if (search.trim()) {
       const q = search.toLowerCase();
       result = result.filter(g => g.name?.toLowerCase().includes(q) || g.id?.includes(q));
     }
 
-    // Sort
     result = [...result].sort((a, b) => {
       if (sortBy === 'name') {
-        return sortAsc
-          ? (a.name || '').localeCompare(b.name || '')
-          : (b.name || '').localeCompare(a.name || '');
+        return sortAsc ? (a.name || '').localeCompare(b.name || '') : (b.name || '').localeCompare(a.name || '');
       }
       if (sortBy === 'members') {
-        return sortAsc
-          ? (a.memberCount || 0) - (b.memberCount || 0)
-          : (b.memberCount || 0) - (a.memberCount || 0);
+        return sortAsc ? (a.memberCount || 0) - (b.memberCount || 0) : (b.memberCount || 0) - (a.memberCount || 0);
       }
       return 0;
     });
@@ -106,18 +109,18 @@ export default function Servers() {
   const statusConfig = {
     active: {
       icon: FaCheckCircle,
-      iconColor: 'text-green-500',
-      bgHover: 'hover:border-green-300 dark:hover:border-green-700',
+      iconColor: 'text-green-400',
+      glow: 'hover:ring-green-500/20',
     },
     botOnly: {
       icon: FaExclamationTriangle,
-      iconColor: 'text-amber-500',
-      bgHover: 'hover:border-amber-300 dark:hover:border-amber-700',
+      iconColor: 'text-amber-400',
+      glow: 'hover:ring-amber-500/20',
     },
     noBot: {
       icon: FaTimesCircle,
-      iconColor: 'text-gray-400 dark:text-gray-500',
-      bgHover: 'hover:border-primary-300 dark:hover:border-primary-700',
+      iconColor: 'text-gray-500',
+      glow: 'hover:ring-primary-500/20',
     },
   };
 
@@ -129,86 +132,87 @@ export default function Servers() {
     const canInvite = status === 'noBot';
 
     return (
-      <div
-        key={guild.id}
-        onClick={() => canManage && navigate(`/servers/${guild.id}`)}
-        className={`
-          card p-4 md:p-5 transition-all duration-200 group hover:translate-y-[-2px]
-          ${canManage
-            ? `cursor-pointer ${config.bgHover} hover:shadow-soft-lg dark:hover:shadow-dark-lg`
-            : canInvite
-              ? `${config.bgHover} hover:shadow-soft-lg dark:hover:shadow-dark-lg`
-              : 'opacity-60 cursor-not-allowed'
-          }
-        `}
-      >
-        <div className="flex items-center gap-4">
-          <div className="relative flex-shrink-0">
-            {guild.icon ? (
-              <img
-                src={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`}
-                alt={guild.name}
-                className="w-12 h-12 md:w-14 md:h-14 rounded-xl object-cover shadow-sm"
-                loading="lazy"
-              />
-            ) : (
-              <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-gray-200 dark:bg-dark-700 flex items-center justify-center shadow-sm">
-                <FaServer className="text-gray-400 dark:text-gray-500 text-xl" />
+      <motion.div key={guild.id} variants={fadeUp}>
+        <GlassCard
+          hover={canManage || canInvite}
+          className={cn(
+            'p-4 md:p-5 group',
+            canManage && 'cursor-pointer',
+            !canManage && !canInvite && 'opacity-50',
+            config.glow
+          )}
+          onClick={() => canManage && navigate(`/servers/${guild.id}`)}
+        >
+          <div className="flex items-center gap-4">
+            <div className="relative flex-shrink-0">
+              {guild.icon ? (
+                <img
+                  src={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png?size=128`}
+                  alt={guild.name}
+                  className="w-14 h-14 rounded-xl object-cover shadow-sm"
+                  loading="lazy"
+                />
+              ) : (
+                <div className="w-14 h-14 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                  <span className="text-xl font-bold text-gray-400">{guild.name?.charAt(0)}</span>
+                </div>
+              )}
+              <div className="absolute -bottom-1 -right-1 p-0.5 rounded-full bg-dark-950 border border-white/10">
+                <StatusIcon className={`w-3.5 h-3.5 ${config.iconColor}`} />
               </div>
-            )}
-            <div className="absolute -bottom-1 -right-1 p-1 rounded-full bg-white dark:bg-dark-800 shadow-sm">
-              <StatusIcon className={`w-3.5 h-3.5 ${config.iconColor}`} />
+            </div>
+
+            <div className="flex-1 min-w-0">
+              <h3 className="font-semibold text-gray-900 dark:text-white truncate">{guild.name}</h3>
+              <div className="flex items-center gap-2 mt-0.5">
+                <FaUsers className="w-3 h-3 text-gray-500" />
+                <span className="text-xs text-gray-500 dark:text-gray-400">
+                  {guild.memberCount?.toLocaleString() || '?'} {t('common.members')}
+                </span>
+              </div>
+              {guild.license && (
+                <p className="text-xs text-gray-500 dark:text-gray-500 mt-0.5">
+                  {t('pages.servers.expires')}: {guild.license.expiresAt
+                    ? new Date(guild.license.expiresAt).toLocaleDateString()
+                    : t('pages.servers.never') || 'Never'
+                  }
+                </p>
+              )}
+            </div>
+
+            <div className="flex items-center gap-2 md:gap-3">
+              {guild.license && (
+                <span className={cn(
+                  'hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold',
+                  guild.license.tier === 'VIP'
+                    ? 'bg-purple-500/15 text-purple-300 ring-1 ring-purple-500/20'
+                    : guild.license.tier === 'PREMIUM'
+                      ? 'bg-cyan-500/15 text-cyan-300 ring-1 ring-cyan-500/20'
+                      : 'bg-white/5 text-gray-400 ring-1 ring-white/10'
+                )}>
+                  {guild.license.tier === 'VIP' ? <FaCrown className="w-3 h-3" /> : guild.license.tier === 'PREMIUM' ? <FaGem className="w-3 h-3" /> : null}
+                  {guild.license.tier}
+                </span>
+              )}
+              {canManage && (
+                <FaChevronRight className="w-4 h-4 text-gray-600 group-hover:text-primary-400 group-hover:translate-x-1 transition-all" />
+              )}
+              {canInvite && (
+                <a
+                  href={getInviteUrl(guild.id)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="btn-primary btn-sm"
+                >
+                  <FaPlus className="w-3 h-3" />
+                  <span className="hidden sm:inline">{t('pages.servers.inviteBot')}</span>
+                </a>
+              )}
             </div>
           </div>
-
-          <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-gray-900 dark:text-white truncate">{guild.name}</h3>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
-              {guild.memberCount?.toLocaleString() || '?'} {t('common.members')}
-            </p>
-            {guild.license && (
-              <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
-                {t('pages.servers.expires')}: {guild.license.expiresAt
-                  ? new Date(guild.license.expiresAt).toLocaleDateString()
-                  : t('pages.servers.never')
-                }
-              </p>
-            )}
-          </div>
-
-          <div className="flex items-center gap-2 md:gap-3">
-            {guild.license && (
-              <span className={`
-                hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold
-                ${guild.license.tier === 'VIP'
-                  ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300'
-                  : guild.license.tier === 'PREMIUM'
-                    ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
-                    : 'bg-gray-100 dark:bg-dark-700 text-gray-600 dark:text-gray-400'
-                }
-              `}>
-                {guild.license.tier === 'VIP' ? <FaCrown className="w-3 h-3" /> : guild.license.tier === 'PREMIUM' ? <FaGem className="w-3 h-3" /> : null}
-                {guild.license.tier}
-              </span>
-            )}
-            {canManage && (
-              <FaChevronRight className="w-4 h-4 text-gray-300 dark:text-gray-600 group-hover:text-primary-500 dark:group-hover:text-primary-400 group-hover:translate-x-1 transition-all" />
-            )}
-            {canInvite && (
-              <a
-                href={getInviteUrl(guild.id)}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold bg-primary-500 hover:bg-primary-600 text-white transition-all shadow-sm hover:shadow-md"
-              >
-                <FaPlus className="w-3 h-3" />
-                <span className="hidden sm:inline">{t('pages.servers.inviteBot')}</span>
-              </a>
-            )}
-          </div>
-        </div>
-      </div>
+        </GlassCard>
+      </motion.div>
     );
   };
 
@@ -223,10 +227,10 @@ export default function Servers() {
       <div
         key={guild.id}
         onClick={() => canManage && navigate(`/servers/${guild.id}`)}
-        className={`
-          flex items-center gap-4 px-4 py-3 border-b border-gray-100 dark:border-dark-700 last:border-b-0 transition-colors
-          ${canManage ? 'cursor-pointer hover:bg-gray-50 dark:hover:bg-dark-700/50' : canInvite ? '' : 'opacity-60'}
-        `}
+        className={cn(
+          'flex items-center gap-4 px-4 py-3 border-b border-white/5 last:border-b-0 transition-colors',
+          canManage ? 'cursor-pointer hover:bg-white/5' : canInvite ? '' : 'opacity-50'
+        )}
       >
         <div className="relative flex-shrink-0">
           {guild.icon ? (
@@ -237,11 +241,11 @@ export default function Servers() {
               loading="lazy"
             />
           ) : (
-            <div className="w-10 h-10 rounded-lg bg-gray-200 dark:bg-dark-700 flex items-center justify-center">
-              <FaServer className="text-gray-400 text-sm" />
+            <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center">
+              <span className="text-sm font-bold text-gray-500">{guild.name?.charAt(0)}</span>
             </div>
           )}
-          <div className="absolute -bottom-0.5 -right-0.5 p-0.5 rounded-full bg-white dark:bg-dark-800">
+          <div className="absolute -bottom-0.5 -right-0.5 p-0.5 rounded-full bg-dark-950">
             <StatusIcon className={`w-2.5 h-2.5 ${config.iconColor}`} />
           </div>
         </div>
@@ -255,18 +259,17 @@ export default function Servers() {
         </span>
 
         {guild.license && (
-          <span className={`
-            hidden md:inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-semibold
-            ${guild.license.tier === 'VIP'
-              ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300'
-              : 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300'
-            }
-          `}>
+          <span className={cn(
+            'hidden md:inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-semibold',
+            guild.license.tier === 'VIP'
+              ? 'bg-purple-500/15 text-purple-300'
+              : 'bg-cyan-500/15 text-cyan-300'
+          )}>
             {guild.license.tier}
           </span>
         )}
 
-        {canManage && <FaChevronRight className="w-3.5 h-3.5 text-gray-300 dark:text-gray-600" />}
+        {canManage && <FaChevronRight className="w-3.5 h-3.5 text-gray-600" />}
         {canInvite && (
           <a
             href={getInviteUrl(guild.id)}
@@ -286,8 +289,8 @@ export default function Servers() {
     return (
       <div className="space-y-6">
         <div className="flex items-center gap-4 mb-6">
-          <div className="w-40 h-8 bg-gray-200 dark:bg-dark-700 rounded animate-pulse" />
-          <div className="w-28 h-5 bg-gray-200 dark:bg-dark-700 rounded animate-pulse" />
+          <div className="w-40 h-8 bg-white/5 rounded animate-pulse" />
+          <div className="w-28 h-5 bg-white/5 rounded animate-pulse" />
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {Array.from({ length: 6 }, (_, i) => <SkeletonCard key={i} />)}
@@ -298,69 +301,72 @@ export default function Servers() {
 
   return (
     <div className="space-y-6">
-      <PageHeader
-        title={t('pages.servers.title')}
-        subtitle={t('pages.servers.subtitle')}
-        icon={FaServer}
-        iconColor="text-blue-500"
-        actions={
-          <span className="text-sm text-gray-500 dark:text-gray-400">
-            {guilds.length} {t('pages.servers.servers')}
-          </span>
-        }
-      />
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-cyan-500/15 ring-1 ring-cyan-500/20">
+            <FaServer className="w-5 h-5 text-cyan-400" />
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('pages.servers.title')}</h1>
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('pages.servers.subtitle')}</p>
+          </div>
+        </div>
+        <span className="text-sm text-gray-500 dark:text-gray-400">
+          {guilds.length} {t('pages.servers.servers')}
+        </span>
+      </div>
 
       {/* Search + Sort + View Toggle */}
-      <div className="card p-4">
+      <GlassCard className="p-4">
         <div className="flex flex-col sm:flex-row gap-3">
-          {/* Search */}
           <div className="relative flex-1">
-            <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4" />
             <input
               type="text"
               placeholder={t('pages.servers.searchPlaceholder') || 'Search servers...'}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-dark-700 border border-gray-200 dark:border-dark-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-transparent text-gray-900 dark:text-white text-sm"
+              className="input pl-10"
             />
           </div>
 
-          {/* Sort buttons */}
           <div className="flex items-center gap-2">
             <button
               onClick={() => toggleSort('name')}
-              className={`flex items-center gap-1.5 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+              className={cn(
+                'flex items-center gap-1.5 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors',
                 sortBy === 'name'
-                  ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400'
-                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-dark-700'
-              }`}
+                  ? 'bg-primary-500/15 text-primary-400 ring-1 ring-primary-500/20'
+                  : 'text-gray-400 hover:text-white hover:bg-white/5'
+              )}
             >
               {sortBy === 'name' && (sortAsc ? <FaSortAmountUp className="w-3 h-3" /> : <FaSortAmountDown className="w-3 h-3" />)}
               {t('pages.servers.sortName') || 'Name'}
             </button>
             <button
               onClick={() => toggleSort('members')}
-              className={`flex items-center gap-1.5 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+              className={cn(
+                'flex items-center gap-1.5 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors',
                 sortBy === 'members'
-                  ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400'
-                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-dark-700'
-              }`}
+                  ? 'bg-primary-500/15 text-primary-400 ring-1 ring-primary-500/20'
+                  : 'text-gray-400 hover:text-white hover:bg-white/5'
+              )}
             >
               {sortBy === 'members' && (sortAsc ? <FaSortAmountUp className="w-3 h-3" /> : <FaSortAmountDown className="w-3 h-3" />)}
               {t('pages.servers.sortMembers') || 'Members'}
             </button>
 
-            {/* View toggle */}
-            <div className="hidden sm:flex items-center border border-gray-200 dark:border-dark-600 rounded-xl overflow-hidden ml-1">
+            <div className="hidden sm:flex items-center border border-white/10 rounded-xl overflow-hidden ml-1">
               <button
                 onClick={() => setViewMode('grid')}
-                className={`p-2.5 transition-colors ${viewMode === 'grid' ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600' : 'text-gray-400 hover:text-gray-600'}`}
+                className={cn('p-2.5 transition-colors', viewMode === 'grid' ? 'bg-primary-500/15 text-primary-400' : 'text-gray-500 hover:text-gray-300')}
               >
                 <FaTh className="w-3.5 h-3.5" />
               </button>
               <button
                 onClick={() => setViewMode('list')}
-                className={`p-2.5 transition-colors ${viewMode === 'list' ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600' : 'text-gray-400 hover:text-gray-600'}`}
+                className={cn('p-2.5 transition-colors', viewMode === 'list' ? 'bg-primary-500/15 text-primary-400' : 'text-gray-500 hover:text-gray-300')}
               >
                 <FaList className="w-3.5 h-3.5" />
               </button>
@@ -369,33 +375,35 @@ export default function Servers() {
         </div>
 
         {/* Filter tabs */}
-        <div className="flex gap-2 mt-3 pt-3 border-t border-gray-100 dark:border-dark-700 overflow-x-auto no-scrollbar">
+        <div className="flex gap-2 mt-3 pt-3 border-t border-white/5 overflow-x-auto no-scrollbar">
           {FILTERS.map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
-              className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-colors ${
+              className={cn(
+                'flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-all',
                 filter === f
-                  ? 'bg-primary-500 text-white shadow-sm'
-                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-dark-700'
-              }`}
+                  ? 'bg-gradient-to-r from-primary-500 to-accent-500 text-white shadow-lg shadow-primary-500/25'
+                  : 'text-gray-400 hover:text-white hover:bg-white/5'
+              )}
             >
               {filterLabels[f]}
-              <span className={`px-1.5 py-0.5 rounded-full text-xs font-bold ${
+              <span className={cn(
+                'px-1.5 py-0.5 rounded-full text-xs font-bold',
                 filter === f
                   ? 'bg-white/20 text-white'
-                  : 'bg-gray-200 dark:bg-dark-600 text-gray-600 dark:text-gray-400'
-              }`}>
+                  : 'bg-white/5 text-gray-500'
+              )}>
                 {filterCounts[f]}
               </span>
             </button>
           ))}
         </div>
-      </div>
+      </GlassCard>
 
       {/* Results */}
       {filteredGuilds.length === 0 ? (
-        <div className="card">
+        <GlassCard>
           <EmptyState
             icon={FaServer}
             title={search
@@ -409,19 +417,20 @@ export default function Servers() {
             actionLabel={search ? (t('common.clearSearch') || 'Clear search') : undefined}
             onAction={search ? () => setSearch('') : undefined}
           />
-        </div>
+        </GlassCard>
       ) : viewMode === 'list' ? (
-        <div className="card overflow-hidden">
+        <GlassCard className="overflow-hidden">
           {filteredGuilds.map(renderGuildListRow)}
-        </div>
+        </GlassCard>
       ) : (
-        <AnimatedList className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {filteredGuilds.map((guild) => (
-            <AnimatedListItem key={guild.id}>
-              {renderGuildCard(guild)}
-            </AnimatedListItem>
-          ))}
-        </AnimatedList>
+        <motion.div
+          variants={stagger}
+          initial="hidden"
+          animate="show"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-4"
+        >
+          {filteredGuilds.map(renderGuildCard)}
+        </motion.div>
       )}
     </div>
   );

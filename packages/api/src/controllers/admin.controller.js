@@ -14,6 +14,8 @@ async function getAdminDashboard(req, res) {
     const twoWeeksAgo = new Date(now - 14 * 24 * 60 * 60 * 1000);
     const last24h = new Date(now - 24 * 60 * 60 * 1000);
 
+    const safe = (promise, fallback = 0) => promise.catch(() => fallback);
+
     const [
       totalUsers,
       totalServers,
@@ -32,20 +34,20 @@ async function getAdminDashboard(req, res) {
       automodByType,
       recentActivity
     ] = await Promise.all([
-      User.count(),
-      Guild.count({ where: { isActive: true } }),
-      License.count({ where: { isActive: true } }),
-      CommandUsage.count({ where: { executedAt: { [Op.gte]: last24h } } }),
-      Mute.count({ where: { isActive: true } }),
+      safe(User.count()),
+      safe(Guild.count({ where: { isActive: true } })),
+      safe(License.count({ where: { isActive: true } })),
+      safe(CommandUsage.count({ where: { executedAt: { [Op.gte]: last24h } } })),
+      safe(Mute.count({ where: { isActive: true } })),
       // Trends
-      User.count({ where: { createdAt: { [Op.gte]: weekAgo } } }),
-      User.count({ where: { createdAt: { [Op.gte]: twoWeeksAgo, [Op.lt]: weekAgo } } }),
-      Guild.count({ where: { isActive: true, joinedAt: { [Op.gte]: weekAgo } } }),
-      Guild.count({ where: { isActive: true, joinedAt: { [Op.gte]: twoWeeksAgo, [Op.lt]: weekAgo } } }),
-      License.count({ where: { isActive: true, createdAt: { [Op.gte]: weekAgo } } }),
-      License.count({ where: { isActive: true, createdAt: { [Op.gte]: twoWeeksAgo, [Op.lt]: weekAgo } } }),
+      safe(User.count({ where: { createdAt: { [Op.gte]: weekAgo } } })),
+      safe(User.count({ where: { createdAt: { [Op.gte]: twoWeeksAgo, [Op.lt]: weekAgo } } })),
+      safe(Guild.count({ where: { isActive: true, joinedAt: { [Op.gte]: weekAgo } } })),
+      safe(Guild.count({ where: { isActive: true, joinedAt: { [Op.gte]: twoWeeksAgo, [Op.lt]: weekAgo } } })),
+      safe(License.count({ where: { isActive: true, createdAt: { [Op.gte]: weekAgo } } })),
+      safe(License.count({ where: { isActive: true, createdAt: { [Op.gte]: twoWeeksAgo, [Op.lt]: weekAgo } } })),
       // Charts data - last 7 days
-      CommandUsage.findAll({
+      safe(CommandUsage.findAll({
         attributes: [
           [sequelize.fn('DATE', sequelize.col('executed_at')), 'date'],
           [sequelize.fn('COUNT', sequelize.col('id')), 'count']
@@ -54,8 +56,8 @@ async function getAdminDashboard(req, res) {
         group: [sequelize.fn('DATE', sequelize.col('executed_at'))],
         order: [[sequelize.fn('DATE', sequelize.col('executed_at')), 'ASC']],
         raw: true
-      }),
-      User.findAll({
+      }), []),
+      safe(User.findAll({
         attributes: [
           [sequelize.fn('DATE', sequelize.col('created_at')), 'date'],
           [sequelize.fn('COUNT', sequelize.col('id')), 'count']
@@ -64,8 +66,8 @@ async function getAdminDashboard(req, res) {
         group: [sequelize.fn('DATE', sequelize.col('created_at'))],
         order: [[sequelize.fn('DATE', sequelize.col('created_at')), 'ASC']],
         raw: true
-      }),
-      Guild.findAll({
+      }), []),
+      safe(Guild.findAll({
         attributes: [
           [sequelize.fn('DATE', sequelize.col('joined_at')), 'date'],
           [sequelize.fn('COUNT', sequelize.col('id')), 'count']
@@ -74,9 +76,9 @@ async function getAdminDashboard(req, res) {
         group: [sequelize.fn('DATE', sequelize.col('joined_at'))],
         order: [[sequelize.fn('DATE', sequelize.col('joined_at')), 'ASC']],
         raw: true
-      }),
+      }), []),
       // Automod violations by type
-      AutoModViolation.findAll({
+      safe(AutoModViolation.findAll({
         attributes: [
           'violationType',
           [sequelize.fn('COUNT', sequelize.col('id')), 'count']
@@ -85,13 +87,13 @@ async function getAdminDashboard(req, res) {
         group: ['violationType'],
         order: [[sequelize.fn('COUNT', sequelize.col('id')), 'DESC']],
         raw: true
-      }),
+      }), []),
       // Recent activity feed
-      ModerationLog.findAll({
+      safe(ModerationLog.findAll({
         limit: 20,
         order: [['created_at', 'DESC']],
         include: [{ model: Guild, as: 'guild', attributes: ['guildName'] }]
-      })
+      }), [])
     ]);
 
     const calcTrend = (current, previous) => {

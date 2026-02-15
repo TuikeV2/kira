@@ -1,10 +1,25 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
-import { FaBox, FaPlus, FaEdit, FaTrash, FaCrown, FaCheck, FaTimes, FaStar, FaSave } from 'react-icons/fa';
+import { FaBox, FaPlus, FaEdit, FaTrash, FaCrown, FaCheck, FaTimes, FaStar, FaSave, FaCog, FaGlobe } from 'react-icons/fa';
 import { adminService } from '../../services/api.service';
 import { useToast } from '../../contexts/ToastContext';
 import { SkeletonCard } from '../../components/ui';
 import { useTranslation } from '../../contexts/LanguageContext';
+
+const MODULE_LIST = [
+  { id: 'automod', label: 'Auto-Moderation' },
+  { id: 'join-leave', label: 'Join/Leave' },
+  { id: 'invite-logger', label: 'Invite Logger' },
+  { id: 'leveling', label: 'Leveling' },
+  { id: 'giveaways', label: 'Giveaways' },
+  { id: 'music', label: 'Music' },
+  { id: 'embed-creator', label: 'Embed Creator' },
+  { id: 'reaction-roles', label: 'Reaction Roles' },
+  { id: 'tickets', label: 'Tickets' },
+  { id: 'custom-commands', label: 'Custom Commands' },
+  { id: 'stats-channels', label: 'Stats Channels' },
+  { id: 'temp-voice', label: 'Temp Voice' },
+];
 
 const DEFAULT_PRODUCT = {
   name: '',
@@ -15,6 +30,7 @@ const DEFAULT_PRODUCT = {
   pricePerMonth: 30,
   maxServers: 1,
   features: [],
+  featureLimits: [],
   isPopular: false,
   savings: null,
   savingsType: 'fixed',
@@ -66,6 +82,7 @@ export default function AdminProducts() {
       pricePerMonth: parseFloat(product.pricePerMonth) || 0,
       maxServers: product.maxServers || 1,
       features: product.features || [],
+      featureLimits: product.featureLimits || [],
       isPopular: product.isPopular || false,
       savings: product.savings || null,
       savingsType: product.savingsType || 'fixed',
@@ -108,7 +125,8 @@ export default function AdminProducts() {
       setShowModal(false);
       fetchProducts();
     } catch (error) {
-      toast.error(t('adminProducts.saveError'));
+      const msg = error.response?.data?.message || t('adminProducts.saveError');
+      toast.error(msg);
     } finally {
       setSaving(false);
     }
@@ -473,6 +491,67 @@ export default function AdminProducts() {
                       </button>
                     </div>
                   ))}
+                </div>
+              </div>
+
+              {/* Feature Limits */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
+                  <FaCog className="text-gray-400" />
+                  {t('adminProducts.featureLimits') || 'Feature Limits'}
+                </label>
+                <div className="space-y-2 max-h-64 overflow-y-auto border border-gray-200 dark:border-dark-600 rounded-lg p-3">
+                  {MODULE_LIST.map((mod) => {
+                    const fl = formData.featureLimits.find(f => f.moduleId === mod.id) || { moduleId: mod.id, enabled: false, maxItems: '', subFeatures: [], showOnLanding: false, description: '' };
+                    const updateFL = (updates) => {
+                      const existing = formData.featureLimits.filter(f => f.moduleId !== mod.id);
+                      setFormData({ ...formData, featureLimits: [...existing, { ...fl, ...updates }] });
+                    };
+                    return (
+                      <div key={mod.id} className="p-3 bg-gray-50 dark:bg-dark-700 rounded-lg">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-2">
+                            <input
+                              type="checkbox"
+                              checked={fl.enabled}
+                              onChange={(e) => updateFL({ enabled: e.target.checked })}
+                              className="rounded border-gray-300 text-amber-500 focus:ring-amber-500"
+                            />
+                            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{mod.label}</span>
+                          </div>
+                          <label className="flex items-center gap-1 text-xs text-gray-500">
+                            <FaGlobe className="w-3 h-3" />
+                            <input
+                              type="checkbox"
+                              checked={fl.showOnLanding}
+                              onChange={(e) => updateFL({ showOnLanding: e.target.checked })}
+                              className="rounded border-gray-300 text-blue-500 focus:ring-blue-500"
+                            />
+                            Landing
+                          </label>
+                        </div>
+                        {fl.enabled && (
+                          <div className="grid grid-cols-2 gap-2 mt-2">
+                            <input
+                              type="number"
+                              min="0"
+                              value={fl.maxItems || ''}
+                              onChange={(e) => updateFL({ maxItems: e.target.value ? parseInt(e.target.value) : '' })}
+                              className="px-2 py-1 text-xs border border-gray-300 dark:border-dark-600 rounded bg-white dark:bg-dark-600 text-gray-900 dark:text-white"
+                              placeholder={t('adminProducts.maxItems') || 'Max items (0=unlimited)'}
+                            />
+                            <input
+                              type="text"
+                              value={fl.description || ''}
+                              onChange={(e) => updateFL({ description: e.target.value })}
+                              className="px-2 py-1 text-xs border border-gray-300 dark:border-dark-600 rounded bg-white dark:bg-dark-600 text-gray-900 dark:text-white"
+                              placeholder={t('adminProducts.featureDesc') || 'Description for landing'}
+                            />
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
 

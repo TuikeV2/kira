@@ -207,6 +207,7 @@ router.post('/products', authenticateToken, requireAdmin, async (req, res) => {
       pricePerMonth,
       maxServers,
       features,
+      featureLimits,
       isPopular,
       savings,
       savingsType,
@@ -223,6 +224,7 @@ router.post('/products', authenticateToken, requireAdmin, async (req, res) => {
       pricePerMonth: pricePerMonth || (price / duration),
       maxServers: maxServers || 1,
       features: features || [],
+      featureLimits: featureLimits || [],
       isPopular: isPopular || false,
       savings,
       savingsType: savingsType || 'fixed',
@@ -233,7 +235,7 @@ router.post('/products', authenticateToken, requireAdmin, async (req, res) => {
     res.json({ success: true, data: product });
   } catch (error) {
     console.error('Failed to create product:', error);
-    res.status(500).json({ success: false, message: 'Failed to create product' });
+    res.status(500).json({ success: false, message: error.message || 'Failed to create product' });
   }
 });
 

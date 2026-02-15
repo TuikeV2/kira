@@ -7,7 +7,7 @@ export default function AdminRoute({ children }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-dark-900">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-dark-950">
         <div className="flex flex-col items-center gap-4">
           <div className="w-12 h-12 border-4 border-primary-500 border-t-transparent rounded-full animate-spin"></div>
           <div className="text-lg text-gray-600 dark:text-gray-300">Loading...</div>

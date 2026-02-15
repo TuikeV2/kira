@@ -3,6 +3,10 @@ const router = express.Router();
 const dashboardController = require('../controllers/dashboard.controller');
 const { authenticateToken } = require('../middleware/auth.middleware');
 
+// Public endpoints (no auth)
+router.get('/public-stats', dashboardController.getPublicStats);
+router.get('/public-features', dashboardController.getPublicFeatures);
+
 router.get('/stats', authenticateToken, dashboardController.getStats);
 router.get('/servers', authenticateToken, dashboardController.getServers);
 router.get('/commands', authenticateToken, dashboardController.getCommandStats);

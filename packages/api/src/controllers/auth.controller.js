@@ -5,6 +5,20 @@ const discordOAuth = require('../utils/discord-oauth');
 const ApiResponse = require('../utils/response');
 const logger = require('../utils/logger');
 
+// Tymczasowe przechowywanie tokenów dla logowania z aplikacji mobilnej
+// Klucz: sessionId, wartość: { token, createdAt }
+const appTokenStore = new Map();
+
+// Czyszczenie starych tokenów co 5 minut
+setInterval(() => {
+  const now = Date.now();
+  for (const [key, value] of appTokenStore) {
+    if (now - value.createdAt > 5 * 60 * 1000) {
+      appTokenStore.delete(key);
+    }
+  }
+}, 5 * 60 * 1000);
+
 async function initiateDiscordOAuth(req, res) {
   const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${config.discord.clientId}&redirect_uri=${encodeURIComponent(config.discord.redirectUri)}&response_type=code&scope=identify%20guilds`;
   res.redirect(authUrl);
@@ -65,7 +79,18 @@ async function handleDiscordCallback(req, res) {
       { expiresIn: config.jwt.expiresIn }
     );
 
-    res.redirect(`${config.frontendUrl}/auth/callback?token=${jwtToken}`);
+    const state = req.query.state || '';
+
+    // Logowanie z aplikacji mobilnej: state = "app_SESSIONID"
+    if (state.startsWith('app_')) {
+      const sessionId = state.substring(4);
+      appTokenStore.set(sessionId, { token: jwtToken, createdAt: Date.now() });
+      logger.info(`App auth: token stored for session ${sessionId}`);
+      return res.redirect(`${config.frontendUrl}/auth/callback?state=${encodeURIComponent(state)}&app=1`);
+    }
+
+    const stateParam = state ? `&state=${encodeURIComponent(state)}` : '';
+    res.redirect(`${config.frontendUrl}/auth/callback?token=${jwtToken}${stateParam}`);
   } catch (error) {
     logger.error('Discord OAuth callback error:', error);
     res.redirect(`${config.frontendUrl}/login?error=auth_failed`);
@@ -89,6 +114,22 @@ async function getCurrentUser(req, res) {
   }
 }
 
+async function getAppToken(req, res) {
+  const { sessionId } = req.params;
+
+  if (!sessionId) {
+    return ApiResponse.error(res, 'Session ID required', null, 400);
+  }
+
+  const entry = appTokenStore.get(sessionId);
+  if (!entry) {
+    return ApiResponse.error(res, 'Token not found or expired', null, 404);
+  }
+
+  logger.info(`App auth: token retrieved for session ${sessionId}`);
+  return ApiResponse.success(res, { token: entry.token });
+}
+
 async function logout(req, res) {
   return ApiResponse.success(res, null, 'Logged out successfully');
 }
@@ -97,5 +138,6 @@ module.exports = {
   initiateDiscordOAuth,
   handleDiscordCallback,
   getCurrentUser,
+  getAppToken,
   logout
 };

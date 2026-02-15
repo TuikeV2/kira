@@ -3,11 +3,10 @@ import { createContext, useContext, useState, useEffect, useCallback } from 'rea
 // Import translations from shared package (copied for web build)
 import pl from '../i18n/pl.json';
 import en from '../i18n/en.json';
-import ru from '../i18n/ru.json';
 
-const translations = { pl, en, ru };
+const translations = { pl, en };
 
-const SUPPORTED_LANGUAGES = ['pl', 'en', 'ru'];
+const SUPPORTED_LANGUAGES = ['pl', 'en'];
 const DEFAULT_LANGUAGE = 'pl';
 const STORAGE_KEY = 'kira_language';
 
@@ -119,7 +118,7 @@ export function LanguageProvider({ children }) {
     languages: SUPPORTED_LANGUAGES.map(code => ({
       code,
       name: translations[code]?.common?.language || code,
-      nativeName: code === 'pl' ? 'Polski' : code === 'en' ? 'English' : 'Русский'
+      nativeName: code === 'pl' ? 'Polski' : 'English'
     }))
   };
 

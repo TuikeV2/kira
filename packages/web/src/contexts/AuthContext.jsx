@@ -20,9 +20,12 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await authService.getCurrentUser();
       setUser(response.data.data);
+      return response; // Zwracamy odpowiedź, aby .then() zadziałało
     } catch (error) {
       console.error('Failed to fetch user:', error);
       localStorage.removeItem('token');
+      // Ważne: Rzucamy błąd dalej, aby .catch() w komponentach (np. AuthCallback) zadziałał
+      throw error;
     } finally {
       setLoading(false);
     }
@@ -30,7 +33,8 @@ export const AuthProvider = ({ children }) => {
 
   const login = (token) => {
     localStorage.setItem('token', token);
-    fetchUser();
+    setLoading(true);
+    return fetchUser();
   };
 
   const logout = async () => {

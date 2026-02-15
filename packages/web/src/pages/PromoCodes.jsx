@@ -138,7 +138,7 @@ export default function PromoCodes() {
             {editingId ? t('promoCodes.editCode') : t('promoCodes.createCode')}
           </h2>
           <form onSubmit={handleCreate} className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-gray-700 dark:text-gray-300 mb-2">{t('promoCodes.code')}</label>
                 <input
@@ -163,7 +163,7 @@ export default function PromoCodes() {
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <label className="block text-gray-700 dark:text-gray-300 mb-2">
                   {t('promoCodes.value')} {formData.discountType === 'percentage' ? '(%)' : '(PLN)'}
@@ -217,7 +217,8 @@ export default function PromoCodes() {
         </div>
       )}
 
-      <div className="card overflow-hidden">
+      {/* Desktop table */}
+      <div className="card overflow-hidden hidden md:block">
         <table className="min-w-full divide-y divide-gray-200 dark:divide-dark-700">
           <thead className="bg-gray-50 dark:bg-dark-700">
             <tr>
@@ -260,7 +261,7 @@ export default function PromoCodes() {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
-                    {promo.usedCount} / {promo.maxUses || '∞'}
+                    {promo.usedCount} / {promo.maxUses || '\u221e'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <button onClick={() => handleToggleActive(promo)}>
@@ -295,6 +296,74 @@ export default function PromoCodes() {
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* Mobile cards */}
+      <div className="md:hidden space-y-3">
+        {promoCodes.length === 0 ? (
+          <div className="card p-6 text-center text-gray-500 dark:text-gray-400">
+            {t('promoCodes.noPromoCodes')}
+          </div>
+        ) : (
+          promoCodes.map((promo) => (
+            <div key={promo.id} className="card p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <code className="text-sm font-mono font-bold text-gray-900 dark:text-gray-100">
+                    {promo.code}
+                  </code>
+                  <button
+                    onClick={() => copyToClipboard(promo.code)}
+                    className="text-gray-400 hover:text-blue-500 p-1"
+                  >
+                    <FaCopy className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+                <button onClick={() => handleToggleActive(promo)}>
+                  {promo.isActive ? (
+                    <span className="flex items-center gap-1 text-xs text-green-500"><FaCheck className="w-3 h-3" /> Active</span>
+                  ) : (
+                    <span className="flex items-center gap-1 text-xs text-red-500"><FaTimes className="w-3 h-3" /> Inactive</span>
+                  )}
+                </button>
+              </div>
+
+              <div className="flex items-center gap-3 text-sm">
+                <span className={`px-2 py-1 rounded text-xs font-semibold ${
+                  promo.discountType === 'percentage'
+                    ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300'
+                    : 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300'
+                }`}>
+                  {promo.discountType === 'percentage'
+                    ? `${promo.discountValue}%`
+                    : `${promo.discountValue} PLN`}
+                </span>
+                <span className="text-gray-500 dark:text-gray-400">
+                  {promo.usedCount} / {promo.maxUses || '\u221e'} {t('promoCodes.uses').toLowerCase()}
+                </span>
+              </div>
+
+              <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                <span>{promo.expiresAt ? new Date(promo.expiresAt).toLocaleDateString() : t('promoCodes.never')}</span>
+              </div>
+
+              <div className="flex justify-end gap-2 border-t border-gray-200 dark:border-dark-700 pt-2">
+                <button
+                  onClick={() => handleEdit(promo)}
+                  className="text-blue-600 hover:text-blue-800 p-2 text-sm flex items-center gap-1"
+                >
+                  <FaEdit className="w-3 h-3" /> {t('promoCodes.editTooltip') || 'Edit'}
+                </button>
+                <button
+                  onClick={() => handleDelete(promo.id)}
+                  className="text-red-600 hover:text-red-800 p-2 text-sm flex items-center gap-1"
+                >
+                  <FaTrash className="w-3 h-3" /> {t('promoCodes.deleteTooltip') || 'Delete'}
+                </button>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

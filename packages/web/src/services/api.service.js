@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API_URL = import.meta.env.VITE_API_URL || 'https://api.kiraevo.pl';
 
 const api = axios.create({
   baseURL: API_URL,
@@ -26,8 +26,9 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
+      // Nie rób hard reload — tylko wyczyść token.
+      // React router (ProtectedRoute) sam przekieruje na /login.
       localStorage.removeItem('token');
-      window.location.href = '/login';
     }
     return Promise.reject(error);
   }
@@ -38,6 +39,7 @@ export const authService = {
     window.location.href = `${API_URL}/api/auth/discord`;
   },
   getCurrentUser: () => api.get('/api/auth/me'),
+  getAppToken: (sessionId) => api.get(`/api/auth/app-token/${sessionId}`),
   logout: () => {
     localStorage.removeItem('token');
     return api.post('/api/auth/logout');
@@ -57,6 +59,8 @@ export const licenseService = {
 };
 
 export const dashboardService = {
+  getPublicStats: () => api.get('/api/dashboard/public-stats'),
+  getPublicFeatures: () => api.get('/api/dashboard/public-features'),
   getStats: () => api.get('/api/dashboard/stats'),
   getServers: (params) => api.get('/api/dashboard/servers', { params }),
   getCommandStats: (params) => api.get('/api/dashboard/commands', { params }),
@@ -180,6 +184,19 @@ export const musicService = {
   setVolume: (guildId, volume) => api.post(`/api/music/${guildId}/volume`, { volume }),
   getQueue: (guildId) => api.get(`/api/music/${guildId}/queue`),
   removeTrack: (guildId, index) => api.post(`/api/music/${guildId}/remove`, { index }),
+};
+
+export const notificationService = {
+  getAll: (params) => api.get('/api/notifications', { params }),
+  getUnreadCount: () => api.get('/api/notifications/unread-count'),
+  markAsRead: (id) => api.put(`/api/notifications/${id}/read`),
+  markAllAsRead: () => api.put('/api/notifications/read-all'),
+  delete: (id) => api.delete(`/api/notifications/${id}`),
+  clearAll: () => api.delete('/api/notifications/clear')
+};
+
+export const versionService = {
+  getLatest: () => api.get('/api/version/latest')
 };
 
 export const promoCodeService = {

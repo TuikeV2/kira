@@ -42,7 +42,7 @@
     "role": "Rola",
     "roles": "Role",
     "member": "Członek",
-    "members": "Członkowie",
+    "members": "Członków",
     "server": "Serwer",
     "servers": "Serwery",
     "user": "Użytkownik",
@@ -58,7 +58,8 @@
     "neverExpires": "Nigdy",
     "unlimited": "Bez limitu",
     "darkMode": "Tryb ciemny",
-    "notifications": "Powiadomienia"
+    "notifications": "Powiadomienia",
+    "all": "Wszystko"
   },
   "nav": {
     "home": "Strona główna",
@@ -74,7 +75,13 @@
     "myAccount": "Moje konto",
     "login": "Zaloguj się",
     "logout": "Wyloguj się",
-    "searchServers": "Szukaj serwerów..."
+    "searchServers": "Szukaj serwerów...",
+    "backToPanel": "Powrót",
+    "allServers": "Wszystkie serwery",
+    "products": "Produkty",
+    "helpCenter": "Centrum pomocy",
+    "downloadApp": "Pobierz aplikację",
+    "fullSystemAccess": "Pełny dostęp do systemu"
   },
   "channelManagement": {
     "title": "Zarządzanie Kanałami",
@@ -281,6 +288,8 @@
     "ctaTitle": "Gotowy zacząć?",
     "ctaDescription": "Dodaj KiraEvo na swój serwer i skonfiguruj wszystko w kilka minut.",
     "ctaButton": "Dodaj KiraEvo teraz",
+    "discordLogin": "Zaloguj za pomocą Discord",
+    "backToHome": "Powrót na stronę główną",
     "features": {
       "automod": "Auto Moderacja",
       "automodDesc": "Automatyczne moderowanie wiadomości, filtrowanie słów i linków.",
@@ -306,11 +315,19 @@
       "benefit3": "Regularne aktualizacje",
       "benefit4": "Wsparcie techniczne"
     },
+    "pricingTitle": "Wybierz swój plan",
+    "pricingSubtitle": "Odblokuj pełny potencjał KiraEvo dla swojego serwera",
     "footer": {
       "terms": "Regulamin",
       "privacy": "Prywatność",
       "rights": "Wszelkie prawa zastrzeżone."
     }
+  },
+  "landing": {
+    "statsServers": "Serwery",
+    "statsUsers": "Użytkownicy",
+    "statsCommands": "Komendy / dzień",
+    "statsUptime": "Uptime"
   },
   "dashboard": {
     "overview": "Przegląd",
@@ -328,6 +345,23 @@
     "tempVoice": "Kanały tymczasowe",
     "music": "Muzyka",
     "musicDesc": "Konfiguruj bota muzycznego i tryb 24/7",
+    "overviewDesc": "Przegląd serwera, statystyki i konfiguracja",
+    "botCustomizationDesc": "Zmień nick bota i język",
+    "automodDesc": "Automatyczna moderacja wiadomości i filtry",
+    "joinLeaveDesc": "Wiadomości powitalne i pożegnalne",
+    "inviteLoggerDesc": "Śledzenie zaproszeń na serwer",
+    "levelingDesc": "System XP z rolami za poziomy",
+    "embedCreatorDesc": "Tworzenie i wysyłanie wiadomości embed",
+    "reactionRolesDesc": "Role przypisywane przez reakcje",
+    "ticketsDesc": "System ticketów wsparcia",
+    "customCommandsDesc": "Własne komendy tekstowe i embed",
+    "giveawaysDesc": "Organizuj giveaway z wymaganiami",
+    "statsChannelsDesc": "Automatycznie aktualizowane kanały statystyk",
+    "tempVoiceDesc": "Tymczasowe kanały głosowe",
+    "moduleEnabled": "Moduł włączony",
+    "moduleDisabled": "Moduł wyłączony",
+    "backToModules": "Powrót do modułów",
+    "categoryengagement": "test",
     "categories": {
       "main": "Główne",
       "management": "Zarządzanie",
@@ -623,7 +657,9 @@
     "notFound": "Nie znaleziono zasobu",
     "serverNotFound": "Serwer nie został znaleziony",
     "licenseRequired": "Wymagana licencja",
-    "licenseExpired": "Licencja wygasła"
+    "licenseExpired": "Licencja wygasła",
+    "notFoundDesc": "Strona, której szukasz, nie istnieje lub została przeniesiona.",
+    "offline": "Jesteś offline. Niektóre funkcje mogą nie działać."
   },
   "pages": {
     "adminDashboard": {
@@ -658,7 +694,11 @@
       "expires": "Wygasa",
       "never": "Nigdy",
       "inviteBot": "Zaproś Bota",
-      "servers": "serwerów"
+      "servers": "serwerów",
+      "sortName": "Sortuj alfabetycznie",
+      "sortMembers": "Sortuj po liczbie użytkowników",
+      "filterAll": "Wszystkie",
+      "searchPlaceholder":"Szukaj po nazwie lub ID..."
     },
     "buyLicense": {
       "title": "Kup Licencję VIP",
@@ -807,7 +847,11 @@
       "licenseExpiring": "Twoja licencja niedługo wygasa!",
       "remaining": "pozostało",
       "getStarted": "Zacznij z KiraEvo",
-      "getStartedDesc": "Dodaj bota na serwer i aktywuj licencję, aby odblokować wszystkie funkcje"
+      "getStartedDesc": "Dodaj bota na serwer i aktywuj licencję, aby odblokować wszystkie funkcje",
+      "core": "Podstawowe",
+      "categorymanagement": "Zarządzanie",
+      "categoryengagement": "Zaangażowanie",
+      "categoryutilities": "funkcjonalność"
     },
     "moderationLogs": {
       "title": "Logi moderacji",
@@ -1247,5 +1291,104 @@
       "premiumRequired": "Ta komenda wymaga licencji Premium lub wyższej",
       "vipRequired": "Ta komenda wymaga licencji VIP"
     }
+  },
+  "notifications": {
+    "title": "Powiadomienia",
+    "empty": "Brak powiadomień",
+    "justNow": "przed chwilą",
+    "unread": "nieprzeczytanych",
+    "allRead": "Wszystko przeczytane",
+    "unreadOnly": "Nieprzeczytane",
+    "markRead": "Oznacz jako przeczytane",
+    "markAllRead": "Oznacz wszystko",
+    "viewAll": "Zobacz wszystkie powiadomienia",
+    "clearAll": "Wyczyść wszystko",
+    "allMarkedRead": "Wszystkie powiadomienia oznaczone jako przeczytane",
+    "allCleared": "Wszystkie powiadomienia wyczyszczone",
+    "noNotifications": "Brak powiadomień",
+    "noNotificationsDesc": "Nie masz żadnych powiadomień!",
+    "fetchError": "Nie udało się załadować powiadomień"
+  },
+  "help": {
+    "title": "Centrum pomocy",
+    "subtitle": "Znajdź odpowiedzi i dowiedz się jak korzystać z KiraEvo",
+    "searchPlaceholder": "Szukaj pomocy...",
+    "discordSupport": "Wsparcie Discord",
+    "discordSupportDesc": "Uzyskaj pomoc od społeczności",
+    "documentation": "Dokumentacja",
+    "documentationDesc": "Szczegółowe poradniki i dokumentacja API",
+    "quickStart": "Szybki start",
+    "quickStartDesc": "Skonfiguruj KiraEvo w 5 minut",
+    "faqTitle": "Najczęściej zadawane pytania",
+    "noResults": "Brak wyników",
+    "moduleGuides": "Poradniki modułów",
+    "gettingStarted": "Pierwsze kroki",
+    "licenses": "Licencje",
+    "moderation": "Moderacja",
+    "modules": "Moduły",
+    "faq": {
+      "howToAddBot": "Jak dodać KiraEvo do mojego serwera?",
+      "howToAddBotAnswer": "Kliknij 'Dodaj bota' na stronie głównej lub panelu. Zostaniesz przekierowany na Discord, aby autoryzować bota. Wybierz swój serwer i potwierdź uprawnienia.",
+      "howToActivateLicense": "Jak aktywować licencję?",
+      "howToActivateLicenseAnswer": "Przejdź do 'Aktywuj licencję' w panelu bocznym. Wpisz klucz licencyjny i wybierz serwer, na którym chcesz go aktywować.",
+      "howToConfigureModules": "Jak skonfigurować moduły bota?",
+      "howToConfigureModulesAnswer": "Przejdź do panelu serwera, a następnie kliknij dowolną kartę modułu, aby otworzyć konfigurację. Użyj przełącznika na każdej karcie, aby włączyć/wyłączyć moduły.",
+      "licenseTiers": "Jakie są poziomy licencji?",
+      "licenseTiersAnswer": "Free: podstawowe funkcje. Premium: zaawansowane moduły, komendy własne, leveling. VIP: wszystkie funkcje, priorytetowe wsparcie, wyższe limity.",
+      "licenseExpiry": "Co się stanie gdy licencja wygaśnie?",
+      "licenseExpiryAnswer": "Funkcje premium zostaną wyłączone, ale podstawowa funkcjonalność bota pozostanie. Konfiguracja jest zachowana i zostanie przywrócona po odnowieniu.",
+      "licenseTransfer": "Czy mogę przenieść licencję na inny serwer?",
+      "licenseTransferAnswer": "Tak, możesz dezaktywować licencję z jednego serwera i aktywować ją na innym przez stronę 'Moje licencje'.",
+      "automodSetup": "Jak skonfigurować AutoMod?",
+      "automodSetupAnswer": "Przejdź do panelu serwera > moduł AutoMod. Włącz potrzebne filtry (spam, linki, caps itp.) i skonfiguruj progi i akcje.",
+      "moderationLogs": "Gdzie mogę zobaczyć logi moderacji?",
+      "moderationLogsAnswer": "Kliknij 'Logi moderacji' w panelu bocznym, aby zobaczyć wszystkie akcje moderacyjne na twoich serwerach.",
+      "levelingSetup": "Jak działa system levelingu?",
+      "levelingSetupAnswer": "Włącz moduł Leveling w panelu serwera. Użytkownicy zdobywają XP przez pisanie. Skonfiguruj stawki XP, wiadomości awansu, nagrody ról i ignorowane kanały.",
+      "ticketSystem": "Jak skonfigurować tickety?",
+      "ticketSystemAnswer": "Włącz Tickety w panelu serwera. Utwórz kategorie, skonfiguruj panel ticketów i wyślij go na kanał.",
+      "customCommands": "Czy mogę tworzyć własne komendy?",
+      "customCommandsAnswer": "Tak! Przejdź do Własnych komend w panelu serwera. Twórz slash komendy z własnymi odpowiedziami, embedami i akcjami. Dostępne z licencją Premium i VIP."
+    },
+    "guide": {
+      "automod": "Automatyczne filtrowanie treści i ochrona przed spamem",
+      "joinLeave": "Wiadomości powitalne i pożegnalne",
+      "leveling": "System XP z rolami za poziomy i rankingami",
+      "tickets": "System ticketów wsparcia z kategoriami",
+      "giveaways": "Tworzenie i zarządzanie konkursami",
+      "customCommands": "Tworzenie własnych slash komend",
+      "music": "Odtwarzanie muzyki na kanałach głosowych",
+      "moderation": "Komendy warn, mute, ban i logowanie"
+    }
+  },
+  "download": {
+    "title": "Pobierz aplikację KiraEvo",
+    "subtitle": "Zarządzaj swoim botem Discord w podróży dzięki naszej aplikacji Android",
+    "downloadButton": "Pobierz APK",
+    "featuresTitle": "Funkcje aplikacji",
+    "features": {
+      "dashboard": "Pełny dostęp do panelu",
+      "servers": "Zarządzanie serwerami",
+      "notifications": "Powiadomienia push",
+      "modules": "Konfiguracja modułów"
+    },
+    "installTitle": "Instrukcja instalacji",
+    "step1": "Pobierz plik APK klikając przycisk powyżej.",
+    "step2": "Otwórz Ustawienia > Bezpieczeństwo i włącz \"Instalacja z nieznanych źródeł\" (lub zezwól przeglądarce na instalowanie aplikacji).",
+    "step3": "Otwórz pobrany plik i postępuj zgodnie z instrukcjami instalacji."
+  },
+  "onboarding": {
+    "welcomeTitle": "Witaj w KiraEvo!",
+    "welcomeDesc": "Pomożemy Ci się skonfigurować w kilku prostych krokach. Przeprowadzimy Cię przez dodanie serwera, aktywację licencji i konfigurację pierwszego modułu.",
+    "addServerTitle": "Dodaj serwer",
+    "addServerDesc": "Przejdź do 'Serwery', aby zobaczyć swoje serwery Discord. Kliknij na dowolny serwer, aby zacząć nim zarządzać.",
+    "activateLicenseTitle": "Aktywuj licencję",
+    "activateLicenseDesc": "Przejdź do 'Aktywuj licencję', aby wprowadzić klucz. Odblokuje to funkcje Premium lub VIP na twoim serwerze.",
+    "configureModulesTitle": "Skonfiguruj moduły",
+    "configureModulesDesc": "Odwiedź panel serwera, aby włączyć i skonfigurować moduły takie jak AutoMod, Leveling, Tickety i inne.",
+    "skip": "Pomiń",
+    "next": "Dalej",
+    "goThere": "Przejdź",
+    "finish": "Zaczynajmy!"
   }
 }

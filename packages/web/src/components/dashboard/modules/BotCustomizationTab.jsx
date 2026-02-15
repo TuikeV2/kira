@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { FaRobot, FaSave, FaSignature, FaGlobe } from 'react-icons/fa';
 import { dashboardService } from '../../../services/api.service';
 import { useTranslation } from '../../../contexts/LanguageContext';
+import botAvatar from '../../../assets/img/avatar.png';
 
 const GUILD_LANGUAGES = [
   { code: 'pl', name: 'Polski', flag: '🇵🇱' },
   { code: 'en', name: 'English', flag: '🇬🇧' },
-  { code: 'ru', name: 'Русский', flag: '🇷🇺' }
 ];
 
 export default function BotCustomizationTab({ guildId, initialSettings, setMessage, onSave }) {
@@ -140,9 +140,11 @@ export default function BotCustomizationTab({ guildId, initialSettings, setMessa
             <div className="flex flex-col items-center text-center">
               {/* Avatar Preview */}
               <div className="relative">
-                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center border-4 border-white dark:border-dark-700 shadow-lg">
-                  <FaRobot className="w-10 h-10 text-white" />
-                </div>
+                <img
+                  src={botAvatar}
+                  alt="KiraEvo"
+                  className="w-24 h-24 rounded-full border-4 border-white dark:border-dark-700 shadow-lg object-cover"
+                />
                 {/* Online indicator */}
                 <div className="absolute bottom-1 right-1 w-6 h-6 bg-green-500 rounded-full border-4 border-white dark:border-dark-700"></div>
               </div>
@@ -161,9 +163,11 @@ export default function BotCustomizationTab({ guildId, initialSettings, setMessa
               <div className="mt-6 w-full bg-gray-100 dark:bg-dark-700 rounded-lg p-4 text-left">
                 <div className="flex items-center gap-3">
                   <div className="relative flex-shrink-0">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-                      <FaRobot className="w-5 h-5 text-white" />
-                    </div>
+                    <img
+                      src={botAvatar}
+                      alt="KiraEvo"
+                      className="w-10 h-10 rounded-full object-cover"
+                    />
                     <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-gray-100 dark:border-dark-700"></div>
                   </div>
                   <div className="flex-1 min-w-0">

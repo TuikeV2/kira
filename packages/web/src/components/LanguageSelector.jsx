@@ -5,7 +5,6 @@ import { useTranslation } from '../contexts/LanguageContext';
 const FLAGS = {
   pl: '🇵🇱',
   en: '🇬🇧',
-  ru: '🇷🇺'
 };
 
 export default function LanguageSelector({ compact = false }) {

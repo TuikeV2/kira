@@ -15,7 +15,8 @@ const models = {
   UserLevel: require('./UserLevel')(sequelize),
   InviteLog: require('./InviteLog')(sequelize),
   PromoCode: require('./PromoCode')(sequelize),
-  Product: require('./Product')(sequelize)
+  Product: require('./Product')(sequelize),
+  Notification: require('./Notification')(sequelize)
 };
 
 Object.values(models).forEach(model => {

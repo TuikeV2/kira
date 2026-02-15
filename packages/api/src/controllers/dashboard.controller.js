@@ -136,6 +136,69 @@ async function getStats(req, res) {
   }
 }
 
+async function getPublicStats(req, res) {
+  try {
+    const totalServers = await models.Guild.count({ where: { isActive: true } });
+
+    const totalUsers = await models.Guild.sum('memberCount', { where: { isActive: true } }) || 0;
+
+    const last24Hours = new Date(Date.now() - 24 * 60 * 60 * 1000);
+    const commandsToday = await models.CommandUsage.count({
+      where: { executedAt: { [Op.gte]: last24Hours } }
+    });
+
+    return ApiResponse.success(res, {
+      totalServers,
+      totalUsers,
+      commandsToday,
+      uptime: 99.9
+    });
+  } catch (error) {
+    logger.error('Get public stats error:', error);
+    return ApiResponse.success(res, {
+      totalServers: 0,
+      totalUsers: 0,
+      commandsToday: 0,
+      uptime: 99.9
+    });
+  }
+}
+
+async function getPublicFeatures(req, res) {
+  try {
+    const products = await models.Product.findAll({
+      where: { isActive: true },
+      order: [['sortOrder', 'ASC']]
+    });
+
+    // Collect features from products that have featureLimits with showOnLanding
+    const features = [];
+    const seen = new Set();
+
+    for (const product of products) {
+      const limits = product.featureLimits;
+      if (!Array.isArray(limits)) continue;
+
+      for (const fl of limits) {
+        if (fl.showOnLanding && fl.enabled && !seen.has(fl.moduleId)) {
+          seen.add(fl.moduleId);
+          features.push({
+            id: fl.moduleId,
+            name: fl.moduleId.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
+            description: fl.description || '',
+            subFeatures: fl.subFeatures || [],
+          });
+        }
+      }
+    }
+
+    return ApiResponse.success(res, features);
+  } catch (error) {
+    logger.error('Get public features error:', error);
+    return ApiResponse.success(res, []);
+  }
+}
+
 async function getServers(req, res) {
   try {
     const { page = 1, limit = 20 } = req.query;
@@ -253,6 +316,7 @@ async function getUserGuilds(req, res) {
       icon: guild.icon,
       owner: guild.owner,
       permissions: guild.permissions,
+      memberCount: guild.approximate_member_count || null,
       registered: !!guildMap[guild.id],
       license: guildMap[guild.id]?.license || null,
       isActive: guildMap[guild.id]?.isActive || false
@@ -274,7 +338,38 @@ async function getGuildDetails(req, res) {
     });
 
     if (!guild) return ApiResponse.error(res, 'Server not found', null, 404);
-    return ApiResponse.success(res, guild);
+
+    // Fetch live guild data from Discord API for icon, banner, memberCount etc.
+    const botToken = process.env.DISCORD_BOT_TOKEN;
+    let discordData = {};
+    if (botToken) {
+      try {
+        const response = await axios.get(
+          `https://discord.com/api/v10/guilds/${guildId}?with_counts=true`,
+          { headers: { Authorization: `Bot ${botToken}` } }
+        );
+        discordData = {
+          name: response.data.name,
+          icon: response.data.icon,
+          banner: response.data.banner,
+          memberCount: response.data.approximate_member_count,
+          premiumTier: response.data.premium_tier,
+          premiumSubscriptionCount: response.data.premium_subscription_count,
+          description: response.data.description,
+          vanityUrlCode: response.data.vanity_url_code,
+          features: response.data.features,
+        };
+      } catch (err) {
+        logger.error('Failed to fetch Discord guild data:', err.message);
+      }
+    }
+
+    const result = {
+      ...guild.toJSON(),
+      ...discordData
+    };
+
+    return ApiResponse.success(res, result);
   } catch (error) {
     logger.error('Get guild details error:', error);
     return ApiResponse.error(res, 'Failed to fetch server details', null, 500);
@@ -2645,7 +2740,7 @@ async function deleteCustomStatsChannel(req, res) {
 }
 
 module.exports = {
-  getStats, getServers, getCommandStats, getActivity, getUserGuilds,
+  getStats, getPublicStats, getPublicFeatures, getServers, getCommandStats, getActivity, getUserGuilds,
   getGuildDetails, updateGuildSettings, getGuildChannels, createChannel,
   updateChannel, deleteChannel, getGuildRoles, getGuildEmojis, fetchChannelMessage, sendEmbedMessage,
   createReactionRolePanel, deleteReactionRolePanel, createStatsChannels,

@@ -3,7 +3,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
-const { sequelize } = require('@kira/shared');
+const { sequelize, models } = require('@kira/shared');
 const config = require('./config/api.config');
 const logger = require('./utils/logger');
 const { errorHandler, notFoundHandler } = require('./middleware/errorHandler.middleware');
@@ -20,6 +20,8 @@ const webhookRoutes = require('./routes/webhook.routes');
 const promoCodeRoutes = require('./routes/promoCode.routes');
 const adminRoutes = require('./routes/admin.routes');
 const musicRoutes = require('./routes/music.routes');
+const notificationRoutes = require('./routes/notification.routes');
+const versionRoutes = require('./routes/version.routes');
 
 const app = express();
 
@@ -27,8 +29,14 @@ app.set('trust proxy', 1);
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 100,
+  max: 500,
   message: 'Too many requests from this IP, please try again later'
+});
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 30,
+  message: 'Too many login attempts, please try again later'
 });
 
 app.use(helmet());
@@ -53,7 +61,7 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-app.use('/api/auth', authRoutes);
+app.use('/api/auth', authLimiter, authRoutes);
 app.use('/api/licenses', licenseRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/moderation', moderationRoutes);
@@ -65,6 +73,8 @@ app.use('/api/webhook', webhookRoutes);
 app.use('/api/promo-codes', promoCodeRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/music', musicRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/version', versionRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
@@ -79,6 +89,9 @@ async function start() {
 
     // Wyłączono alter aby uniknąć błędu "Too many keys" - schemat już istnieje
     await sequelize.sync({ alter: false });
+    // Sync tabel z nowymi kolumnami
+    await models.Product.sync({ alter: true });
+    await models.Notification.sync({ alter: true });
     logger.info('Database models synchronized');
 
     app.listen(config.port, '0.0.0.0', () => {

@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import {
   FaHome, FaKey, FaServer, FaGavel, FaCheckCircle, FaDiscord, FaTimes,
   FaCrown, FaChevronLeft, FaChevronRight, FaPercent, FaChartLine,
-  FaUsers, FaChartBar, FaBox, FaArrowLeft
+  FaUsers, FaChartBar, FaBox, FaArrowLeft, FaQuestionCircle
 } from 'react-icons/fa';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTranslation } from '../../contexts/LanguageContext';
@@ -10,14 +10,12 @@ import { Tooltip } from '../ui';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const USER_MENU_ITEMS = [
-  { path: '/', icon: FaHome, labelKey: 'nav.dashboard', adminOnly: true },
-  { path: '/admin/licenses', icon: FaKey, labelKey: 'nav.licenses', adminOnly: true },
-  { path: '/admin/promo-codes', icon: FaPercent, labelKey: 'nav.promoCodes', adminOnly: true },
-  { path: '/buy', icon: FaCrown, labelKey: 'nav.buyLicense', adminOnly: false },
+  { path: '/servers', icon: FaServer, labelKey: 'nav.servers', adminOnly: false },
   { path: '/my-licenses', icon: FaKey, labelKey: 'licenses.myLicenses', adminOnly: false },
   { path: '/activate', icon: FaCheckCircle, labelKey: 'nav.activateLicense', adminOnly: false },
-  { path: '/servers', icon: FaServer, labelKey: 'nav.servers', adminOnly: false },
+  { path: '/buy', icon: FaCrown, labelKey: 'nav.buyLicense', adminOnly: false },
   { path: '/moderation', icon: FaGavel, labelKey: 'nav.moderationLogs', adminOnly: false },
+  { path: '/help', icon: FaQuestionCircle, labelKey: 'nav.helpCenter', adminOnly: false },
 ];
 
 const USER_ADMIN_ITEMS = [
@@ -51,8 +49,8 @@ const VARIANT_CONFIG = {
     sectionColor: 'text-purple-400',
     adminGradient: 'from-purple-600 to-purple-500',
     adminShadow: 'shadow-purple-500/25',
-    footerBg: 'bg-dark-800/50',
-    footerBorder: 'border-dark-700',
+    footerBg: 'bg-gray-100 dark:bg-dark-800/50',
+    footerBorder: 'border-gray-200 dark:border-dark-700',
     footerDot: 'bg-green-500',
     footerLabel: 'v1.2.0-beta',
     footerBadge: 'bg-primary-500/20 text-primary-400',
@@ -92,13 +90,13 @@ function SidebarLink({ item, isActive, isCollapsed, onClose, gradient, shadow })
         transition-all duration-200
         ${isActive
           ? `bg-gradient-to-r ${gradient} text-white shadow-lg ${shadow}`
-          : 'text-gray-400 hover:bg-dark-800 hover:text-white'
+          : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-dark-800 hover:text-gray-900 dark:hover:text-white'
         }
       `}
     >
       <div className={`
         p-2 rounded-lg transition-all duration-200
-        ${isActive ? 'bg-white/20' : 'bg-dark-800 group-hover:bg-dark-700'}
+        ${isActive ? 'bg-white/20' : 'bg-gray-100 dark:bg-dark-800 group-hover:bg-gray-200 dark:group-hover:bg-dark-700'}
       `}>
         <item.icon className="w-4 h-4" />
       </div>
@@ -142,20 +140,20 @@ export default function UnifiedSidebar({ variant = 'user', isOpen = false, onClo
   return (
     <aside
       className={`
-        bg-dark-900 dark:bg-dark-950
+        bg-white dark:bg-dark-950
         ${sidebarWidth}
         flex flex-col
         fixed inset-y-0 left-0
         transform transition-all duration-300 ease-out
         z-30
         md:relative md:translate-x-0
-        border-r border-dark-800 dark:border-dark-700
+        border-r border-gray-200 dark:border-dark-700
         shadow-2xl md:shadow-xl
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
       `}
     >
       {/* Header */}
-      <div className={`flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} p-5 border-b border-dark-800`}>
+      <div className={`flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'} p-5 border-b border-gray-200 dark:border-dark-800`}>
         <div className="flex items-center gap-3">
           <div className="relative">
             <div className={`absolute inset-0 ${config.headerGlow} blur-lg opacity-50`}></div>
@@ -172,8 +170,8 @@ export default function UnifiedSidebar({ variant = 'user', isOpen = false, onClo
                 transition={{ duration: 0.2 }}
                 className="overflow-hidden"
               >
-                <span className="text-xl font-bold text-white tracking-wide whitespace-nowrap">
-                  {config.headerTitle}<span className="font-light text-gray-400">{config.headerSubtitle}</span>
+                <span className="text-xl font-bold text-gray-900 dark:text-white tracking-wide whitespace-nowrap">
+                  {config.headerTitle}<span className="font-light text-gray-400 dark:text-gray-400">{config.headerSubtitle}</span>
                 </span>
               </motion.div>
             )}
@@ -184,7 +182,7 @@ export default function UnifiedSidebar({ variant = 'user', isOpen = false, onClo
           <button
             onClick={onClose}
             aria-label="Close sidebar"
-            className="md:hidden p-2 text-gray-400 hover:text-white hover:bg-dark-800 rounded-lg transition-colors"
+            className="md:hidden p-2 text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-dark-800 rounded-lg transition-colors"
           >
             <FaTimes className="w-5 h-5" />
           </button>
@@ -195,7 +193,7 @@ export default function UnifiedSidebar({ variant = 'user', isOpen = false, onClo
       <button
         onClick={onToggleCollapse}
         aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-        className="hidden md:flex absolute -right-3 top-20 w-6 h-6 bg-dark-800 border border-dark-700 rounded-full items-center justify-center text-gray-400 hover:text-white hover:bg-dark-700 transition-colors z-40"
+        className="hidden md:flex absolute -right-3 top-20 w-6 h-6 bg-white dark:bg-dark-800 border border-gray-200 dark:border-dark-700 rounded-full items-center justify-center text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-dark-700 transition-colors z-40"
       >
         {isCollapsed ? <FaChevronRight className="w-3 h-3" /> : <FaChevronLeft className="w-3 h-3" />}
       </button>
@@ -213,7 +211,7 @@ export default function UnifiedSidebar({ variant = 'user', isOpen = false, onClo
               gradient={config.accentGradient}
               shadow={config.accentShadow}
             />
-            <div className="border-t border-dark-800 my-3"></div>
+            <div className="border-t border-gray-200 dark:border-dark-800 my-3"></div>
           </>
         )}
 
@@ -241,7 +239,7 @@ export default function UnifiedSidebar({ variant = 'user', isOpen = false, onClo
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="text-xs font-semibold text-gray-500 uppercase tracking-wider px-3 mb-3"
+                className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider px-3 mb-3"
               >
                 Menu
               </motion.div>
@@ -269,7 +267,7 @@ export default function UnifiedSidebar({ variant = 'user', isOpen = false, onClo
             {/* Admin section for user variant */}
             {isAdmin && (
               <>
-                <div className="my-3 border-t border-dark-800"></div>
+                <div className="my-3 border-t border-gray-200 dark:border-dark-800"></div>
                 <AnimatePresence>
                   {!isCollapsed && (
                     <motion.div
@@ -321,12 +319,12 @@ export default function UnifiedSidebar({ variant = 'user', isOpen = false, onClo
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="p-4 border-t border-dark-800"
+            className="p-4 border-t border-gray-200 dark:border-dark-800"
           >
             <div className={`${config.footerBg} rounded-xl p-4 border ${config.footerBorder}`}>
               <div className="flex items-center gap-2 mb-2">
                 <div className={`w-2 h-2 rounded-full ${config.footerDot} animate-pulse`}></div>
-                <p className="text-xs font-medium text-gray-300">{config.footerLabel}</p>
+                <p className="text-xs font-medium text-gray-600 dark:text-gray-300">{config.footerLabel}</p>
               </div>
               {variant === 'user' && (
                 <div className="flex items-center justify-between text-xs text-gray-500">
@@ -348,7 +346,7 @@ export default function UnifiedSidebar({ variant = 'user', isOpen = false, onClo
 
       {/* Collapsed footer indicator */}
       {isCollapsed && (
-        <div className="p-4 border-t border-dark-800 flex justify-center">
+        <div className="p-4 border-t border-gray-200 dark:border-dark-800 flex justify-center">
           <div className={`w-3 h-3 rounded-full ${config.footerDot} animate-pulse`}></div>
         </div>
       )}

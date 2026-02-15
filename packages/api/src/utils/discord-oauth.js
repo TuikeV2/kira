@@ -36,7 +36,7 @@ async function getUserInfo(accessToken) {
 }
 
 async function getUserGuilds(accessToken) {
-  const response = await axios.get(`${DISCORD_API_BASE}/users/@me/guilds`, {
+  const response = await axios.get(`${DISCORD_API_BASE}/users/@me/guilds?with_counts=true`, {
     headers: {
       Authorization: `Bearer ${accessToken}`
     }
